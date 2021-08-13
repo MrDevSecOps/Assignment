@@ -1596,6 +1596,28 @@ public class Main {
   
         NON_INPUT_FILE++;
         }
+
+        // EQUITY
+        String[] EQUITY_INFILE = ReadingFileIntoArray("EQUITY.txt");
+        //System.out.println(Arrays.toString(CURRENT_INFILE));
+  
+        // Split Array Into Multidimensional Arrays
+        int EQUITY_FILE = 0;
+        while(NON_INPUT_FILE < CURRENT_INFILE.length) {
+        String CURRENT_BALANCE_SHEET = CURRENT_INFILE[NON_INPUT_FILE];
+        // One Dimensional Array
+        // WE GET EACH ROW FROM ARRAY FROM FILE
+        String[] EQUITY_splitted= CURRENT_BALANCE_SHEET.split("\\s+");
+        // INSERT EACH ROW's ELEMENT INTO NEW MULTIDIMENSIONAL ARRAY
+        //String Price = splited[2].substring(8,splited[2].length());
+  
+        EQUITY[EQUITY_FILE][0] = EQUITY_splitted[0].substring(0,EQUITY_splitted[0].length());
+        EQUITY[EQUITY_FILE][1] = EQUITY_splitted[1].substring(0,EQUITY_splitted[1].length());
+        EQUITY[EQUITY_FILE][2] = EQUITY_splitted[2].substring(0,EQUITY_splitted[2].length());
+        EQUITY[EQUITY_FILE][3] = EQUITY_splitted[3].substring(0,EQUITY_splitted[3].length());
+  
+        EQUITY_FILE++;
+        }
   
 
 
