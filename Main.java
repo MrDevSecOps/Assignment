@@ -1,6 +1,10 @@
 // Name: Ho Weng Yin
 // ID: D210044A
+// Batch: IT21A
+// Subject Name: IT_FSDD_2021B
+// Project
 // Topic: Computer Shop Stock Management System
+// Submission Date: /8/21
 /*
 Introduction:
     Problem Statement. Since MCO or Covid-19 Outbreak, the demand for the semiconductor especially the computer 
@@ -16,7 +20,31 @@ in the automated system instead of manpower key-in system.
     My Stock management system has several objectives.  
     First. Computer Shop Stock Management System can read, modify and delete the computer accessories stock record.
     Secondly. Computer Shop Stock Management System can calculate the stock value.
-    Thirdly. Computer Shop Stock Management System could ....
+    Thirdly. Computer Shop Stock Management System could do the stock procurement related operation as 
+    find the supplier, calculate the compound interest, breakeven, currency convertion
+    Next. Computer Shop Stock Management System provide simple accounting system to assist the users to do the
+    basic understanding about the computer
+*/
+
+/*
+    1.Stock Management
+        READ 
+        SEARCH 
+        ADD 
+        DELETE 
+        ADVANCED SEARCH 
+
+    2. Stock Evaluation
+    3. Stock Procurement
+        Logistics
+        Compound Interest Calculator
+        Breakeven Calculator
+        Currency Convertor Calculator
+    4. Balance Sheet
+
+
+
+
 */
 
 import java.util.Arrays;
@@ -48,6 +76,10 @@ public class Main {
     // Global Array
     public static String[] Desktop;
     public static String[] Laptop;
+
+    public static String[][] Non_Current= new String[10][4];
+    public static String[][] Current= new String[10][4];
+    public static String[][] EQUITY= new String[10][4];
 
     // Priority Method Start
     // Menu Method
@@ -82,6 +114,7 @@ public class Main {
         +"\n_-'.-.-.-.-.-. .---.-. .-------------------------. .-.---. .---.-.-.-.`-_  "
         +"\n:-------------------------------------------------------------------------:"
         +"\n`---._.-------------------------------------------------------------._.---'"
+        +"\nInsert 1-9:"
         );
     }
 
@@ -100,7 +133,7 @@ public class Main {
         +"\n          |   |  5. Delete Multiple Items (Can Overlap) |    |	       "
         +"\n          |   |  6. Edit Stock                          |    |	       "
         +"\n          |   |  7. Advanced Search                     |    |	       "
-        +"\n          |   |                                         |    |	       "
+        +"\n          |   |  8. Create Database                     |    |	       "
         +"\n          |   |  9. Return To Main Page                 |    |	       "
         +"\n          |   |  Insert 1-9:                            |    |	       "
         +"\n          |   |_________________________________________|    |	       "
@@ -115,6 +148,7 @@ public class Main {
         +"\n_-'.-.-.-.-.-. .---.-. .-------------------------. .-.---. .---.-.-.-.`-_  "
         +"\n:-------------------------------------------------------------------------:"
         +"\n`---._.-------------------------------------------------------------._.---'"
+        +"\nInsert 1-9:"
         );
     }
 
@@ -143,6 +177,7 @@ public class Main {
             +"\n_-'.-.-.-.-.-. .---.-. .-------------------------. .-.---. .---.-.-.-.`-_  "
             +"\n:-------------------------------------------------------------------------:"
             +"\n`---._.-------------------------------------------------------------._.---'"
+            +"\nInsert 1-9:"
             );
 
     }
@@ -178,6 +213,7 @@ public class Main {
             +"\n_-'.-.-.-.-.-. .---.-. .-------------------------. .-.---. .---.-.-.-.`-_  "
             +"\n:-------------------------------------------------------------------------:"
             +"\n`---._.-------------------------------------------------------------._.---'"
+            +"\nInsert 1-9:"
             );
 
     }
@@ -337,6 +373,11 @@ public class Main {
                     case 7:
                         System.out.println("Case 7");
                         AdvancedSearchStock();
+                        break;
+                    case 8:
+                        System.out.println("Case 8");
+                        CreateDatabase();
+                        break;
 
 
                     case 9:
@@ -1050,6 +1091,39 @@ public class Main {
 
     }
 
+    public static void CreateDatabase(){
+        // Refer TO:https://www.javatpoint.com/how-to-create-a-file-in-java
+        System.out.println("Create Database");
+        File file = new File("DESKTOP.txt");
+        File file2 = new File("LAPTOP.txt");
+        boolean result;
+        boolean result2;
+        try{
+            result = file.createNewFile();
+            if(result){
+                System.out.println("File Created" + file.getCanonicalPath());
+            } else{
+                System.out.println("DESKTOP.txt already exists");
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            result2 = file2.createNewFile();
+            if(result2){
+                System.out.println("File Created" + file2.getCanonicalPath());
+            } else{
+                System.out.println("LAPTOP.txt already exists");
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     // Priority Method End
     // Less Priority Method
 
@@ -1173,17 +1247,45 @@ public class Main {
     public static void CompoundInterest(){
         Scanner Compound_Interest_Scanner = new Scanner(System.in);
         while(RepeatedForThree){
-            System.out.println("1- Find Future Value");
+            System.out.println("\n\n1- Find Future Value");
             System.out.println("2- Find Present Value\n\n");
 
             //  
             System.out.println("9- Exit");
             try{
+                int NumberForOperation = Compound_Interest_Scanner.nextInt();
+                Double PresentValue = Compound_Interest_Scanner.nextDouble();
+
+                if(NumberForOperation == 1){
+                    // FV = PV x (1 + i)^n 
+                    // FV = P (1 + r/n) ^ nt 
+                    
+                    ClearScreen();
+                    System.out.println("\n\nTHIS FORMULA IS ADOPT: FV = P (1+ r/n) ^nt\n ");
+                    System.out.println("Please Enter Your Present Value: ");
+                    try{
+
+                    }catch(Exception e){
+
+                    }
+
+                    CalculatorArt(7.0);
+                } else if(NumberForOperation == 2){
+                    ClearScreen();
+                    CalculatorArt(7.0);
+
+                }else if(NumberForOperation == 9){
+                    ClearScreen();
+                    CalculatorArt(7.0);
+                    RepeatedForThree = false;
+
+                } else{
+                    System.out.println("Invalid Input");
+                }
 
             }catch(Exception e){
                 System.out.println("You Are Not Enter Numbers");
             }
-            CalculatorArt(7.0);
 
         }
     }
@@ -1194,6 +1296,7 @@ public class Main {
 
     }
     public static void Currency_Convertor(){
+        // Constant Variable 
         final Double USD_DOLLAR = 4.24;
         final Double SDG_DOLLAR = 3.12;
         final Double RMB_RM = 0.65;
@@ -1350,17 +1453,15 @@ public class Main {
         System.out.println("__________Debit__________________________________________________________________Credit____________________________");
         System.out.println("Non-Current Assert              RM                                          Non-Current Liability              RM");
         System.out.println("___________________________________________________________________________________________________________________");
-        String[][] Non_Current= new String[10][4];
 
         System.out.println("__________________________________________________________________________________________________________________");
         System.out.println("Current Assert                  RM                                              Current Liability              RM");
         System.out.println("___________________________________________________________________________________________________________________");
-        String[][] Current= new String[10][4];
+       
 
         System.out.println("__________________________________________________________________________________________________________________");
         System.out.println("                                RM                                                EQUITY                       RM");
         System.out.println("___________________________________________________________________________________________________________________");
-        String[][] EQUITY= new String[10][4];
 
         System.out.println("___________________________________________________________________________________________________________________");
         System.out.println("                                                                                                                    ");
