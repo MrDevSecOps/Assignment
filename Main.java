@@ -55,6 +55,7 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.io.FileOutputStream;
@@ -80,6 +81,16 @@ public class Main {
     public static String[][] Non_Current= new String[10][4];
     public static String[][] Current= new String[10][4];
     public static String[][] EQUITY= new String[10][4];
+
+    public static Double SUM1_DEBIT = 0.0;
+    public static Double SUM1_CREDIT = 0.0;
+
+    public static Double SUM2_DEBIT = 0.0;
+    public static Double SUM2_CREDIT = 0.0;
+    public static Double SUM3_DEBIT = 0.0;
+    public static Double SUM3_CREDIT = 0.0;
+    public static Double TOTALSUM_DEBIT = 0.0;
+    public static Double TOTALSUM_CREDIT = 0.0;
 
     // Priority Method Start
     // Menu Method
@@ -1512,6 +1523,7 @@ public class Main {
             case "2":
                 break;
             case "3":
+                GenerateBalanceSheet();
                 break;
             default:
                 System.out.println("Invalid Input");
@@ -1556,7 +1568,7 @@ public class Main {
         // Read File 
         String[] CURRENT_INFILE = ReadingFileIntoArray("CURRENT.txt");
         //System.out.println(Arrays.toString(CURRENT_INFILE));
-
+      
         // Split Array Into Multidimensional Arrays
         int INPUT_FILE = 0;
         while(INPUT_FILE < CURRENT_INFILE.length) {
@@ -1571,7 +1583,8 @@ public class Main {
             Current[INPUT_FILE][1] = CURRENT_splitted[1].substring(0,CURRENT_splitted[1].length());
             Current[INPUT_FILE][2] = CURRENT_splitted[2].substring(0,CURRENT_splitted[2].length());
             Current[INPUT_FILE][3] = CURRENT_splitted[3].substring(0,CURRENT_splitted[3].length());
-
+            SUM1_DEBIT = SUM1_DEBIT + Integer.parseInt(Current[INPUT_FILE][1]);
+            SUM1_CREDIT = SUM1_CREDIT + Integer.parseInt(Current[INPUT_FILE][3]);
             INPUT_FILE++;
         }
 
@@ -1581,11 +1594,11 @@ public class Main {
   
         // Split Array Into Multidimensional Arrays
         int NON_INPUT_FILE = 0;
-        while(NON_INPUT_FILE < CURRENT_INFILE.length) {
-        String CURRENT_BALANCE_SHEET = CURRENT_INFILE[NON_INPUT_FILE];
+        while(NON_INPUT_FILE < NON_CURRENT_INFILE.length) {
+        String NON_CURRENT_BALANCE_SHEET = NON_CURRENT_INFILE[NON_INPUT_FILE];
         // One Dimensional Array
         // WE GET EACH ROW FROM ARRAY FROM FILE
-        String[] NON_CURRENT_splitted= CURRENT_BALANCE_SHEET.split("\\s+");
+        String[] NON_CURRENT_splitted= NON_CURRENT_BALANCE_SHEET.split("\\s+");
         // INSERT EACH ROW's ELEMENT INTO NEW MULTIDIMENSIONAL ARRAY
         //String Price = splited[2].substring(8,splited[2].length());
   
@@ -1593,6 +1606,8 @@ public class Main {
         Non_Current[NON_INPUT_FILE][1] = NON_CURRENT_splitted[1].substring(0,NON_CURRENT_splitted[1].length());
         Non_Current[NON_INPUT_FILE][2] = NON_CURRENT_splitted[2].substring(0,NON_CURRENT_splitted[2].length());
         Non_Current[NON_INPUT_FILE][3] = NON_CURRENT_splitted[3].substring(0,NON_CURRENT_splitted[3].length());
+        SUM2_DEBIT = SUM2_DEBIT + Integer.parseInt(Non_Current[NON_INPUT_FILE][1]);
+        SUM2_CREDIT = SUM2_CREDIT + Integer.parseInt(Non_Current[NON_INPUT_FILE][3]);
   
         NON_INPUT_FILE++;
         }
@@ -1603,11 +1618,11 @@ public class Main {
   
         // Split Array Into Multidimensional Arrays
         int EQUITY_FILE = 0;
-        while(NON_INPUT_FILE < CURRENT_INFILE.length) {
-        String CURRENT_BALANCE_SHEET = CURRENT_INFILE[NON_INPUT_FILE];
+        while(EQUITY_FILE < EQUITY_INFILE.length) {
+        String EQUITY_BALANCE_SHEET = EQUITY_INFILE[EQUITY_FILE];
         // One Dimensional Array
         // WE GET EACH ROW FROM ARRAY FROM FILE
-        String[] EQUITY_splitted= CURRENT_BALANCE_SHEET.split("\\s+");
+        String[] EQUITY_splitted= EQUITY_BALANCE_SHEET.split("\\s+");
         // INSERT EACH ROW's ELEMENT INTO NEW MULTIDIMENSIONAL ARRAY
         //String Price = splited[2].substring(8,splited[2].length());
   
@@ -1615,9 +1630,15 @@ public class Main {
         EQUITY[EQUITY_FILE][1] = EQUITY_splitted[1].substring(0,EQUITY_splitted[1].length());
         EQUITY[EQUITY_FILE][2] = EQUITY_splitted[2].substring(0,EQUITY_splitted[2].length());
         EQUITY[EQUITY_FILE][3] = EQUITY_splitted[3].substring(0,EQUITY_splitted[3].length());
+        SUM3_DEBIT = SUM3_DEBIT + Integer.parseInt(EQUITY[EQUITY_FILE][1]);
+        SUM3_CREDIT = SUM3_CREDIT + Integer.parseInt(EQUITY[EQUITY_FILE][3]);
+  
   
         EQUITY_FILE++;
         }
+        TOTALSUM_DEBIT = SUM1_DEBIT + SUM2_DEBIT + SUM3_DEBIT;
+        TOTALSUM_CREDIT = SUM1_CREDIT + SUM2_CREDIT + SUM3_CREDIT;
+
   
 
 
@@ -1644,10 +1665,155 @@ public class Main {
         System.out.println("__________________________________________________________________________________________________________________");
         System.out.println("                                RM                                                EQUITY                       RM");
         System.out.println("___________________________________________________________________________________________________________________");
+        print2D(EQUITY);
+
         System.out.println("\n\n___________________________________________________________________________________________________________________");
-        System.out.println("                                                                                                                    ");
+        System.out.println("                           "+TOTALSUM_DEBIT+"                                "+TOTALSUM_CREDIT+"                         ");
         System.out.println("___________________________________________________________________________________________________________________");
 
+
+    }
+
+    public static void GenerateBalanceSheet(){
+       
+        String[] CURRENT_INFILE = ReadingFileIntoArray("CURRENT.txt");   
+        int INPUT_FILE = 0;
+            while(INPUT_FILE < CURRENT_INFILE.length) {
+                String CURRENT_BALANCE_SHEET = CURRENT_INFILE[INPUT_FILE];    
+                String[] CURRENT_splitted= CURRENT_BALANCE_SHEET.split("\\s+");
+      
+                Current[INPUT_FILE][0] = CURRENT_splitted[0].substring(0,CURRENT_splitted[0].length());
+                Current[INPUT_FILE][1] = CURRENT_splitted[1].substring(0,CURRENT_splitted[1].length());
+                Current[INPUT_FILE][2] = CURRENT_splitted[2].substring(0,CURRENT_splitted[2].length());
+                Current[INPUT_FILE][3] = CURRENT_splitted[3].substring(0,CURRENT_splitted[3].length());
+                SUM1_DEBIT = SUM1_DEBIT + Integer.parseInt(Current[INPUT_FILE][1]);
+                SUM1_CREDIT = SUM1_CREDIT + Integer.parseInt(Current[INPUT_FILE][3]);
+                INPUT_FILE++;
+            }
+      
+            String[] NON_CURRENT_INFILE = ReadingFileIntoArray("NONCURRENT.txt");
+            int NON_INPUT_FILE = 0;
+            while(NON_INPUT_FILE < NON_CURRENT_INFILE.length) {
+              String NON_CURRENT_BALANCE_SHEET = NON_CURRENT_INFILE[NON_INPUT_FILE];
+              String[] NON_CURRENT_splitted= NON_CURRENT_BALANCE_SHEET.split("\\s+");
+              Non_Current[NON_INPUT_FILE][0] = NON_CURRENT_splitted[0].substring(0,NON_CURRENT_splitted[0].length());
+              Non_Current[NON_INPUT_FILE][1] = NON_CURRENT_splitted[1].substring(0,NON_CURRENT_splitted[1].length());
+              Non_Current[NON_INPUT_FILE][2] = NON_CURRENT_splitted[2].substring(0,NON_CURRENT_splitted[2].length());
+              Non_Current[NON_INPUT_FILE][3] = NON_CURRENT_splitted[3].substring(0,NON_CURRENT_splitted[3].length());
+              SUM2_DEBIT = SUM2_DEBIT + Integer.parseInt(Non_Current[NON_INPUT_FILE][1]);
+              SUM2_CREDIT = SUM2_CREDIT + Integer.parseInt(Non_Current[NON_INPUT_FILE][3]);
+        
+              NON_INPUT_FILE++;
+            }
+            String[] EQUITY_INFILE = ReadingFileIntoArray("EQUITY.txt");
+            int EQUITY_FILE = 0;
+            while(EQUITY_FILE < EQUITY_INFILE.length) {
+            String EQUITY_BALANCE_SHEET = EQUITY_INFILE[EQUITY_FILE];
+            String[] EQUITY_splitted= EQUITY_BALANCE_SHEET.split("\\s+");
+            EQUITY[EQUITY_FILE][0] = EQUITY_splitted[0].substring(0,EQUITY_splitted[0].length());
+            EQUITY[EQUITY_FILE][1] = EQUITY_splitted[1].substring(0,EQUITY_splitted[1].length());
+            EQUITY[EQUITY_FILE][2] = EQUITY_splitted[2].substring(0,EQUITY_splitted[2].length());
+            EQUITY[EQUITY_FILE][3] = EQUITY_splitted[3].substring(0,EQUITY_splitted[3].length());
+            SUM3_DEBIT = SUM3_DEBIT + Integer.parseInt(EQUITY[EQUITY_FILE][1]);
+            SUM3_CREDIT = SUM3_CREDIT + Integer.parseInt(EQUITY[EQUITY_FILE][3]);
+        
+            EQUITY_FILE++;
+            }
+            TOTALSUM_DEBIT = SUM1_DEBIT + SUM2_DEBIT + SUM3_DEBIT;
+            TOTALSUM_CREDIT = SUM1_CREDIT + SUM2_CREDIT + SUM3_CREDIT;   
+            String DEBIT = TOTALSUM_DEBIT.toString();
+            String CREDIT = TOTALSUM_CREDIT.toString();
+            try{
+                // https://www.programcreek.com/2011/03/java-write-to-a-file-code-example/
+                FileWriter fw = new FileWriter("BALANCESHEET.txt");
+                fw.write("\n");
+                fw.write("___________________________________________________________________________________________________________________");
+                fw.write("\n");
+                fw.write("__________Debit__________________________________________________________________Credit____________________________");
+                fw.write("\n");
+                int alignment_File = 30;
+                int totalSpace_File = 0;
+                for (int i = 0; i < Non_Current.length; i++) {
+                    for(int k = 0; k <Non_Current[i].length;k++){
+                        fw.write(Non_Current[i][k]);
+                        totalSpace_File = alignment_File - Non_Current[i][k].length();
+                            for(int m=0; m < totalSpace_File; m++){
+                                fw.write(" ");
+                            }
+                    }   
+                    fw.write("\n");
+                }
+                fw.write("\n");
+                fw.write("__________________________________________________________________________________________________________________");
+                fw.write("\n");
+                fw.write("Current Assert                  RM                                              Current Liability              RM");
+                fw.write("\n");
+                fw.write("___________________________________________________________________________________________________________________");
+                fw.write("\n");
+                int alignment_File2 = 30;
+                int totalSpace_File2 = 0;
+                for (int H = 0; H < Current.length; H++) {
+                    for(int k = 0; k <Current[H].length;k++){
+                        fw.write(Current[H][k]);
+                        totalSpace_File2 = alignment_File2 - Current[H][k].length();
+                            for(int m=0; m < totalSpace_File2; m++){
+                                fw.write(" ");
+                            }
+                    }   
+                    fw.write("\n");
+                }
+                fw.write("\n");
+                fw.write("__________________________________________________________________________________________________________________");
+                fw.write("\n");
+                fw.write("                                RM                                                EQUITY                       RM");
+                fw.write("\n");
+                fw.write("___________________________________________________________________________________________________________________");
+                fw.write("\n");
+                int alignment_File3 = 30;
+                int totalSpace_File3 = 0;
+                for (int P = 0; P < EQUITY.length; P++) {
+                    for(int G = 0; G <EQUITY[G].length;G++){
+                        fw.write(EQUITY[P][G]);
+                        totalSpace_File3 = alignment_File3 - EQUITY[P][G].length();
+                            for(int m=0; m < totalSpace_File3; m++){
+                                fw.write(" ");
+                            }
+                    }   
+                    fw.write("\n");
+                }
+                fw.write("\n");
+                fw.write("\n\n___________________________________________________________________________________________________________________");
+                fw.write("\n");
+                fw.write("                           "+DEBIT+"                                "+CREDIT+"                         ");
+                fw.write("\n");
+
+
+                fw.close();
+
+                /*
+                        public static void print2D(String mat[][])
+                        {   int aligment = 30;
+                            int totalspace = 0;
+                            Loop through all rows
+                            for (int i = 0; i < mat.length; i++){
+                            // Loop through all elements of current row
+                                for (int j = 0; j < mat[i].length; j++){
+                                    System.out.print(mat[i][j]);
+                                    totalspace = aligment - mat[i][j].length();
+                                        for(int k=0; k< totalspace; k++){
+                                            System.out.print(" ");
+                                        }
+                                    }
+                                }
+                                System.out.println("");
+                            }
+                        }
+            */
+          
+            }catch(Exception e){
+                System.out.println("There is error when writing files");
+            }
+    
 
     }
 
