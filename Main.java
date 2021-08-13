@@ -180,6 +180,49 @@ public class Main {
             );
 
     }
+
+    public static void BadApple(){
+        // Refer To https://github.com/Pasc99/text2BAinWinConsole/blob/master/text2ba.zip
+        System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM20MMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:     SMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMr       .Sri::0MMMMMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX              .WMMMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMZ.                 ZMMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMB                      MMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM0                       ;MMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMS                         0MMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX                          MMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMr                          XMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX                           @MMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMai;                        MMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX                       BMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM0.                        MMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM2                       MMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM;                     MMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX   ZX            ;   MMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                M r WMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMM0:i    aMMMMMMMMMMMMMMX                 a7SMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMM8         SMMMMMMMMMMMMMS                XMaMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMB         7MMMMMMMMMMMMB.                MMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMM8         .WMMMMMMMM7                  M,BMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMM:           .SBMMMMX                  MMMMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMM@;            .aZ;                    MMMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMM,                                MMMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMM0                                 MMMMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMM0                                 a0S.  WMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMMMB                                    8BBMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMM@.               i,                  MMMMMMMMMMMMMMM\n"
+        +"MMMMMMMMMMMMMMMMMMMMMMMMMMM8                ,:                   MMMMMMMMMMMMMM\n");
+
+        System.out.println("1- Logistic Partner Details");
+        System.out.println("2- Compound Interesting Calculator");
+        System.out.println("3-  Breakeven Calculator");
+        System.out.println("4-  Currency Convertor");
+        System.out.println("9- Exit");
+        System.out.println("Please Insert (1-9):");
+
+    }
     // Repeat Menu Method
     public static void Menu(){
         // Display The ComputerArt As The Menu Graphics User Interface
@@ -209,7 +252,10 @@ public class Main {
                 break;
             case 2:
                 // SubMenu -2
-                Stock_Valuation();
+                System.out.println("__________________________________________DESKTOP_________________________________");
+                Stock_Valuation("DESKTOP.txt");
+                System.out.println("__________________________________________LAPTOP_________________________________");
+                Stock_Valuation("LAPTOP.txt");
                 break;
             case 3:
                 // subMenu -3 
@@ -991,23 +1037,29 @@ public class Main {
     // Less Priority Method
 
     //SubMenu 2
-    public static void Stock_Valuation(){
-        System.out.println("Stock_Value");
-        String[] Desktoplist = ReadingFileIntoArray("DESKTOP.txt");
-        String[] Laptoplist = ReadingFileIntoArray("LAPTOP.txt");
-        long Lines = CountFileLine("DESKTOP.txt");
+    public static void Stock_Valuation(String FILENAME){
+        String[] Desktoplist = ReadingFileIntoArray(FILENAME);
+        //String[] Laptoplist = ReadingFileIntoArray("LAPTOP.txt");
+        long Lines = CountFileLine(FILENAME);
         int Lines_integer = (int) Lines;
+
+        //long Lines2 = CountFileLine("LAPTOP.txt");
+        //int Lines_integer2 = (int) Lines2;
         String[] PriceArray = new String[Lines_integer];
         String[] CostArray = new String[Lines_integer];
         String[] QuantityArray = new String[Lines_integer];
 
-        String[] PriceArray2 = new String[Lines_integer];
-        String[] CostArray2 = new String[Lines_integer];
-        String[] QuantityArray2 = new String[Lines_integer];
+        //String[] PriceArray2 = new String[Lines_integer2];
+        //String[] CostArray2 = new String[Lines_integer2];
+        //String[] QuantityArray2 = new String[Lines_integer2];
 
         int index =0;
         Double NetProfit = 0.0;
         Double TotalCost = 0.0;
+
+        //Double NetProfit2 = 0.0;
+        //Double TotalCost2 = 0.0;
+
         System.out.println("Price\t\t\t\t\tCost\t\t\tQuantity");
         while(index < Desktoplist.length) {
             String item1 = Desktoplist[index];
@@ -1029,56 +1081,123 @@ public class Main {
             System.out.println("");
             // Now We Have Sale Price and Cost Price
             // Profit = (Sale -Cost)*Quantity   --Each Product
-
-            // Laptop
-            String item2 = Laptoplist[index];
-            String[] splited2 = item2.split("\\s+");
-            String Price2 = splited2[2].substring(8,splited2[2].length());
-            PriceArray2[index] = Price2;
-            String Cost2 = splited2[6].substring(7,splited2[6].length());
-            CostArray2[index] = Cost2;
-
-
-
-
-
-
-
             index++;
         }
+        //int indexForLaptop = 0;
+        //while(indexForLaptop< Laptoplist.length) {        
+            // Laptop
+            //String item2 = Laptoplist[indexForLaptop];
+            //String[] splited2 = item2.split("\\s+");
+            //String Price2 = splited2[2].substring(8,splited2[2].length());
+            //PriceArray2[indexForLaptop] = Price2;
+            //String Cost2 = splited2[6].substring(7,splited2[6].length());
+            //CostArray2[indexForLaptop] = Cost2;
+            //String Quantity2 = splited2[5].substring(4,splited2[5].length());
+            //QuantityArray2[indexForLaptop] = Quantity2;
+            //indexForLaptop++;
+        //}
+
         int NextIndex = 0;
+        //int NextIndex2 = 0;
+
         // Convert String to Double Array
         Double[] SalePrice = new Double[PriceArray.length];
         Double[] CostPerUnit = new Double[CostArray.length];
         Double[] QuantityEachProduct = new Double[QuantityArray.length];
+        //Laptop
+        //Double[] SalePrice2 = new Double[PriceArray2.length];
+        //Double[] CostPerUnit2 = new Double[CostArray2.length];
+        //Double[] QuantityEachProduct2 = new Double[QuantityArray2.length];
 
         for (int i = 0; i < PriceArray.length; i++) {
             SalePrice[i] = Double.parseDouble(PriceArray[i]);
             CostPerUnit[i] = Double.parseDouble(CostArray[i]);
             QuantityEachProduct[i] = Double.parseDouble(QuantityArray[i]);
+         
 
         }
+        //for (int p  = 0; p < PriceArray2.length; p++) {
+            //Laptop
+            //SalePrice2[p] = Double.parseDouble(PriceArray2[p]);
+            //CostPerUnit2[p] = Double.parseDouble(CostArray2[p]);
+            //QuantityEachProduct2[p] = Double.parseDouble(QuantityArray2[p]);
+
+        //}
         while(NextIndex < Desktoplist.length){
             NetProfit += (SalePrice[NextIndex]-CostPerUnit[NextIndex]) * QuantityEachProduct[NextIndex];
             TotalCost += (CostPerUnit[NextIndex] * QuantityEachProduct[NextIndex]);
             NextIndex++;
+        
         }
-        // Refer To https://stackoverflow.com/questions/8639115/java-and-decimals-e-numbers
-        System.out.println("______________________Desktop____________________________");
-        System.out.printf("\n\nTotal Of The Sale Price of Products minus the Total Cost of The Product times with the quantity RM%.2f", NetProfit);
-        System.out.println("Total Cost is: " + TotalCost);
+        //while(NextIndex2 < Laptoplist.length){
+            //NetProfit2 += (SalePrice2[NextIndex]-CostPerUnit2[NextIndex]) * QuantityEachProduct2[NextIndex];
+            //TotalCost2 += (CostPerUnit2[NextIndex] * QuantityEachProduct2[NextIndex]);
+            //NextIndex2++;
 
-        System.out.println("\n______________________Laptop____________________________");
+        //}
+
+        
+        // Refer To https://stackoverflow.com/questions/8639115/java-and-decimals-e-numbers
+        System.out.printf("\n\nTotal Of The Sale Price of Products minus the Total Cost of The Product times with the quantity RM%.2f", NetProfit);
+        System.out.printf("\nTotal Cost is: RM%.2f\n",TotalCost);
+
+        //System.out.println("\n______________________Laptop____________________________");
+        //System.out.printf("\n\nTotal Of The Sale Price of Products minus the Total Cost of The Product times with the quantity RM%.2f", NetProfit2);
+        //System.out.println("Total Cost is: " + TotalCost2);
+
+        
+        /*
+            Next Task: WE'RE GOING WRITE THE RESULT INTO FILE IN ORDER TO DO BALANCE SHEET
+        */
+    }
+    public static void Logistics(){
 
     }
+    public static void CompoundInterest(){
+
+    }
+    public static void Breakeven(){
+
+    }
+    public static void Currency_Convertor(){
+
+    }
+    
+    public static void Module_3_DistributionMethod(String input){
+
+        switch(input){
+            case "1":
+                Logistics();
+                break;
+            case "2":
+                CompoundInterest();
+                break;
+            case "3":
+                Breakeven();
+                break;
+            case "4":
+                Currency_Convertor();
+                break;
+            
+            case "9":
+                break;
+            default:
+                System.out.println("Invalid Input");
+                break;
+        }
+    }
+
 
     // SubMenu 3
     public static void Stock_Procurement(){
-        System.out.println("Stock_Procurement");
+        BadApple();
         // 1. LOGISTIC PARTNER ALL DETAILS
-        // 2. INVOICE 
-        // 3. 
-        
+        // 2. Compound Interesting
+        // 3. Breakeven Calculator
+        // 4. Currency Convertor
+        Scanner Function3Scanner = new Scanner(System.in);
+        String SelectionToFunction = Function3Scanner.next();
+        Module_3_DistributionMethod(SelectionToFunction);   
     }
     // Just trial
     public static void BalanceSheet(){
