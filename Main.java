@@ -43,7 +43,8 @@ public class Main {
     public static boolean Repeated =true;
     public static boolean SubMenuRepeated =true;
     public static boolean SubMenuEachFunction = true;
-
+    //
+    public static boolean RepeatedForThree = true;
     // Global Array
     public static String[] Desktop;
     public static String[] Laptop;
@@ -222,6 +223,22 @@ public class Main {
         System.out.println("9- Exit");
         System.out.println("Please Insert (1-9):");
 
+    }
+    public static void CalculatorArt(Double Number){
+        System.out.println("_____________________\n"
+        +"|  _________________  |\n"
+        +"| |   + "+Number+"  \n"
+        +"| |_________________| |\n"
+        +"|  ___ ___ ___   ___  |\n"
+        +"| | 7 | 8 | 9 | | + | |\n"
+        +"| |___|___|___| |___| |\n"
+        +"| | 4 | 5 | 6 | | - | |\n"
+        +"| |___|___|___| |___| |\n"
+        +"| | 1 | 2 | 3 | | x | |\n"
+        +"| |___|___|___| |___| |\n"
+        +"| | . | 0 | = | | / | |\n"
+        +"| |___|___|___| |___| |\n"
+        +"|_____________________|\n");
     }
     // Repeat Menu Method
     public static void Menu(){
@@ -1154,24 +1171,133 @@ public class Main {
 
     }
     public static void CompoundInterest(){
+        Scanner Compound_Interest_Scanner = new Scanner(System.in);
+        while(RepeatedForThree){
+            System.out.println("1- Find Future Value");
+            System.out.println("2- Find Present Value\n\n");
 
+            //  
+            System.out.println("9- Exit");
+            try{
+
+            }catch(Exception e){
+                System.out.println("You Are Not Enter Numbers");
+            }
+            CalculatorArt(7.0);
+
+        }
     }
     public static void Breakeven(){
+        // Cost = Fixed Cost + (Quantity)(Variable Cost) 
+        // Profit = (Sale Price)(Quantity)
+        
 
     }
     public static void Currency_Convertor(){
         final Double USD_DOLLAR = 4.24;
         final Double SDG_DOLLAR = 3.12;
         final Double RMB_RM = 0.65;
+        
         Scanner Currency_Input = new Scanner(System.in);
-        System.out.println("Currency Convertor");
-        System.out.println("1. RM TO RMB");
-        System.out.println("2. RM TO SGD");
-        System.out.println("3. RM TO USD");
-        System.out.println("4. RMB TO RM");
-        System.out.println("5. SGD TO RM");
-        System.out.println("6. USD TO RM");
-        System.out.println("Which Currency You Want To Convert? ");
+        while(RepeatedForThree){
+            System.out.println("\n\nCurrency Convertor");
+            System.out.println("1. RM TO RMB");
+            System.out.println("2. RM TO SGD");
+            System.out.println("3. RM TO USD");
+            System.out.println("4. RMB TO RM");
+            System.out.println("5. SGD TO RM");
+            System.out.println("6. USD TO RM");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("9. Exit");
+            System.out.println("Which Currency You Want To Convert? ");
+            String CurrencyOption = Currency_Input.next();
+            Double TargetCurrency = 0.0;
+            if(CurrencyOption.equals("1")){
+                System.out.println("________________________________________________________");
+                System.out.println("1. RM TO RMB");
+                System.out.println("Please Enter your amount: ");
+                try{
+                    String AmountCurrency = Currency_Input.next();
+                    TargetCurrency = Integer.parseInt(AmountCurrency) / RMB_RM;
+                    System.out.println("\n\nYou Can Get RMB:"+ TargetCurrency);
+                }catch(Exception e){
+                    System.out.println("\n\n\nYou Are Not Key In Numbers. Please Try Again\n\n\n");     
+                }        
+
+            }else if(CurrencyOption.equals("2")){
+                System.out.println("________________________________________________________");
+                System.out.println("2. RM TO SGD");
+                System.out.println("\n\nPlease Enter your amount: ");
+                try{
+                    String AmountCurrency = Currency_Input.next();
+                    TargetCurrency = Integer.parseInt(AmountCurrency) / SDG_DOLLAR;
+                    System.out.println("\n\nYou Can Get SGD:"+ TargetCurrency);
+                }catch(Exception e){
+                    System.out.println("\n\n\nYou Are Not Key In Numbers. Please Try Again\n\n\n");     
+                }
+                 
+
+            } else if(CurrencyOption.equals("3")){
+                System.out.println("________________________________________________________");
+                System.out.println("3. RM TO USD");
+                System.out.println("Please Enter your amount: ");
+                try{
+                    String AmountCurrency = Currency_Input.next();
+                    TargetCurrency = Integer.parseInt(AmountCurrency) / USD_DOLLAR;
+                    System.out.println("\n\nYou Can Get USD:"+ TargetCurrency);
+                }catch(Exception e){
+                    System.out.println("\n\n\nYou Are Not Key In Numbers. Please Try Again\n\n\n");     
+                }
+                 
+
+            }else if(CurrencyOption.equals("4")){
+                System.out.println("________________________________________________________");
+                System.out.println("4. RMB TO RM");
+                System.out.println("Please Enter your amount: ");
+                try{
+                    String AmountCurrency = Currency_Input.next();
+                    TargetCurrency = Integer.parseInt(AmountCurrency) * RMB_RM;
+                    System.out.println("\n\nYou Can Get RM:"+ TargetCurrency);
+                }catch(Exception e){
+                    System.out.println("\n\n\nYou Are Not Key In Numbers. Please Try Again\n\n\n");     
+                }
+
+            }else if(CurrencyOption.equals("5")){
+                System.out.println("________________________________________________________");
+                System.out.println("5. SGD TO RM");
+                System.out.println("Please Enter your amount: ");
+                try{
+                    String AmountCurrency = Currency_Input.next();
+                    TargetCurrency = Integer.parseInt(AmountCurrency) * SDG_DOLLAR;
+                    System.out.println("\n\nYou Can Get RM:"+ TargetCurrency);
+                }catch(Exception e){
+                    System.out.println("\n\n\nYou Are Not Key In Numbers. Please Try Again\n\n\n");     
+                }
+
+
+            } else if(CurrencyOption.equals("6")){
+                System.out.println("________________________________________________________");
+                System.out.println("6. USD TO RM");
+                System.out.println("Please Enter your amount: ");
+                try{
+                    String AmountCurrency = Currency_Input.next();
+                    TargetCurrency = Integer.parseInt(AmountCurrency) * USD_DOLLAR;
+                    System.out.println("\n\nYou Can Get RM:"+ TargetCurrency);
+                }catch(Exception e){
+                    System.out.println("\n\n\nYou Are Not Key In Numbers. Please Try Again\n\n\n");     
+                }
+
+
+            }else if (CurrencyOption.equals("9")){
+                System.out.println("Exit The Currency Convertor...");
+                RepeatedForThree = false;
+
+            }else {
+                System.out.println("Invalid Input");
+            }
+
+        }
 
 
 
@@ -1204,6 +1330,7 @@ public class Main {
 
     // SubMenu 3
     public static void Stock_Procurement(){
+        RepeatedForThree = true;
         BadApple();
         // 1. LOGISTIC PARTNER ALL DETAILS
         // 2. Compound Interesting
