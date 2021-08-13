@@ -148,10 +148,9 @@ public class Main {
         +"\n          |   |  2. Search Stock                        |    |	       "
         +"\n          |   |  3. Add Stock                           |    |	       "
         +"\n          |   |  4. Delete Single Item (Cannot Overlap) |    |	       "
-        +"\n          |   |  5. Delete Multiple Items (Can Overlap) |    |	       "
-        +"\n          |   |  6. Delete The Specific Item(Advanced)  |    |	       "
-        +"\n          |   |  7. Edit Stock                          |    |	       "
-        +"\n          |   |  8. Advanced Search                     |    |	       "
+        +"\n          |   |  5. Delete Items By Rows                |    |	       "
+        +"\n          |   |  6. Edit Stock                          |    |	       "
+        +"\n          |   |  7. Advanced Search                     |    |	       "
         +"\n          |   |  9. Return To Main Page                 |    |	       "
         +"\n          |   |  999. Create Database                   |    |	       "
         +"\n          |   |  Insert 1-9:                            |    |	       "
@@ -383,18 +382,14 @@ public class Main {
                     case 5:
                         // SubMenu 5- Advanced Search Function
                         System.out.println("Case 5");
-                        DeleteMultipleStock();
+                        DeleteStockByRows();
                         break;
                     case 6:
                         System.out.println("Case 6");
+                        EditStock();
                         break;
                     case 7:
                         System.out.println("Case 7");
-                        EditStock();
-                        break;
-
-                    case 8:
-                        System.out.println("Case 8");
                         AdvancedSearchStock();
                         break;
                    
@@ -920,7 +915,7 @@ public class Main {
         }
     }
     // SubMenu 1- 5.Delete Multiple Stock Method
-    public static void DeleteMultipleStock(){
+    public static void DeleteStockByRows(){
 
     }
     // SubMenu 1- 6.Modify Stock Method
