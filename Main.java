@@ -131,10 +131,11 @@ public class Main {
         +"\n          |   |  3. Add Stock                           |    |	       "
         +"\n          |   |  4. Delete Single Item (Cannot Overlap) |    |	       "
         +"\n          |   |  5. Delete Multiple Items (Can Overlap) |    |	       "
-        +"\n          |   |  6. Edit Stock                          |    |	       "
-        +"\n          |   |  7. Advanced Search                     |    |	       "
-        +"\n          |   |  8. Create Database                     |    |	       "
+        +"\n          |   |  6. Delete The Specific Item(Advanced)  |    |	       "
+        +"\n          |   |  7. Edit Stock                          |    |	       "
+        +"\n          |   |  8. Advanced Search                     |    |	       "
         +"\n          |   |  9. Return To Main Page                 |    |	       "
+        +"\n          |   |  999. Create Database                   |    |	       "
         +"\n          |   |  Insert 1-9:                            |    |	       "
         +"\n          |   |_________________________________________|    |	       "
         +"\n          |                                                  |	       "
@@ -368,22 +369,27 @@ public class Main {
                         break;
                     case 6:
                         System.out.println("Case 6");
-                        EditStock();
                         break;
                     case 7:
                         System.out.println("Case 7");
-                        AdvancedSearchStock();
-                        break;
-                    case 8:
-                        System.out.println("Case 8");
-                        CreateDatabase();
+                        EditStock();
                         break;
 
+                    case 8:
+                        System.out.println("Case 8");
+                        AdvancedSearchStock();
+                        break;
+                   
 
                     case 9:
                         // SubMenu-1 Exit 
                         SubMenuRepeated = false;
                         System.out.println("Back To Main Menu... ");
+                        break;
+
+                    case 999:
+                        System.out.println("Case 999");
+                        CreateDatabase();
                         break;
                     default:
                         break;
@@ -1094,6 +1100,8 @@ public class Main {
     public static void CreateDatabase(){
         // Refer TO:https://www.javatpoint.com/how-to-create-a-file-in-java
         System.out.println("Create Database");
+        System.out.println("\n\nYour file format should follow this:");
+        System.out.println("\nI3 LAPTOP PRICE:RM3000 RAM:8GB Webcam,Mouse,Mousepad QTY:1000 COST:RM1500 PURCHASE_DATE:5/5/2020 BRAND:ACER\n\n");
         File file = new File("DESKTOP.txt");
         File file2 = new File("LAPTOP.txt");
         boolean result;
@@ -1242,9 +1250,16 @@ public class Main {
         */
     }
     public static void Logistics(){
+        System.out.println("Logistics First Page");
 
     }
+    // Checking Numeric Method 
+    // Refer https://java2blog.com/java-isnumeric/
+    public static boolean isNumeric(String str) {
+        return str != null && str.matches("[-+]?\\d*\\.?\\d+");
+    }
     public static void CompoundInterest(){
+        boolean Looping= true;
         Scanner Compound_Interest_Scanner = new Scanner(System.in);
         while(RepeatedForThree){
             System.out.println("\n\n1- Find Future Value");
@@ -1254,19 +1269,64 @@ public class Main {
             System.out.println("9- Exit");
             try{
                 int NumberForOperation = Compound_Interest_Scanner.nextInt();
-                Double PresentValue = Compound_Interest_Scanner.nextDouble();
 
                 if(NumberForOperation == 1){
                     // FV = PV x (1 + i)^n 
                     // FV = P (1 + r/n) ^ nt 
                     
                     ClearScreen();
-                    System.out.println("\n\nTHIS FORMULA IS ADOPT: FV = P (1+ r/n) ^nt\n ");
-                    System.out.println("Please Enter Your Present Value: ");
-                    try{
+                    try{    
+                        System.out.println("\n\nTHIS FORMULA IS ADOPT: FV = P (1+ r/n) ^nt\n ");
+                        while(Looping){
+                            System.out.println("Please Enter Your Present Value: ");
+                            String PresentValue = Compound_Interest_Scanner.next();
+                            if(isNumeric(PresentValue)){
+                                Looping = false;
+                            } else{
+                                continue;
+                            }
+
+                        }   
+                        Looping = true;   
+                        while(Looping){
+                            System.out.println("What is your annual interest rate? Such as 5");
+                            String AnnualInterest = Compound_Interest_Scanner.next();
+                            if(isNumeric(AnnualInterest)){
+                                Looping = false;
+                            } else{
+                                continue;
+                            }
+
+                        }   
+                        Looping = true;   
+                        while(Looping){
+                            System.out.println("How many times compounding for one year? Such as 1");
+                            String CompoundTimes = Compound_Interest_Scanner.next();
+                            if(isNumeric(CompoundTimes)){
+                                Looping = false;
+                            } else{
+                                continue;
+                            }
+
+                        }   
+                        Looping = true;  
+                        while(Looping){          
+                            System.out.println("How many times years? Such as 5");
+                            String Total_YEAR = Compound_Interest_Scanner.next();
+                            if(isNumeric(Total_YEAR)){
+                                Looping = false;
+                            } else{
+                                continue;
+                            }
+
+                        }   
+                        Looping = true;  
+    
+                        //Double FutureValue = PresentValue * Math.pow((1+((AnnualInterest/100)/CompoundTimes)),(Total_YEAR*CompoundTimes));
+                    
 
                     }catch(Exception e){
-
+                        System.out.println("You are not entering numbers");
                     }
 
                     CalculatorArt(7.0);
@@ -1444,26 +1504,125 @@ public class Main {
         Module_3_DistributionMethod(SelectionToFunction);   
     }
     // Just trial
+    public static void Module_4_DistributionMethod(String input2){
+        switch(input2){
+            case "1":
+                ReadBalanceSheet();
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            default:
+                System.out.println("Invalid Input");
+                break;
+        }
+    }
     public static void BalanceSheet(){
-        ReadBalanceSheet();
-      
+
+        System.out.println("1- Read Balance Sheet");
+        System.out.println("2- Edit Balance Sheet");
+        System.out.println("3- Produce Balance Sheet into Txt File");
+        System.out.println("\n9- Exit");
+        Scanner Function4Scanner = new Scanner(System.in);
+        String SelectionToFunction2 = Function4Scanner.next();
+        Module_4_DistributionMethod(SelectionToFunction2);   
+    }
+    // Printing Function
+    //https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
+    
+    public static void print2D(String mat[][])
+    {   int aligment = 30;
+        int totalspace = 0;
+        // Loop through all rows
+        for (int i = 0; i < mat.length; i++){
+             // Loop through all elements of current row
+             for (int j = 0; j < mat[i].length; j++){
+                System.out.print(mat[i][j]);
+                totalspace = aligment - mat[i][j].length();
+                for(int k=0; k< totalspace; k++){
+                    System.out.print(" ");
+                }
+                
+            }
+            System.out.println("");
+
+        }
+ 
+           
     }
 
     public static void ReadBalanceSheet(){
+        // Read File 
+        String[] CURRENT_INFILE = ReadingFileIntoArray("CURRENT.txt");
+        //System.out.println(Arrays.toString(CURRENT_INFILE));
+
+        // Split Array Into Multidimensional Arrays
+        int INPUT_FILE = 0;
+        while(INPUT_FILE < CURRENT_INFILE.length) {
+            String CURRENT_BALANCE_SHEET = CURRENT_INFILE[INPUT_FILE];
+            // One Dimensional Array
+            // WE GET EACH ROW FROM ARRAY FROM FILE
+            String[] CURRENT_splitted= CURRENT_BALANCE_SHEET.split("\\s+");
+            // INSERT EACH ROW's ELEMENT INTO NEW MULTIDIMENSIONAL ARRAY
+            //String Price = splited[2].substring(8,splited[2].length());
+
+            Current[INPUT_FILE][0] = CURRENT_splitted[0].substring(0,CURRENT_splitted[0].length());
+            Current[INPUT_FILE][1] = CURRENT_splitted[1].substring(0,CURRENT_splitted[1].length());
+            Current[INPUT_FILE][2] = CURRENT_splitted[2].substring(0,CURRENT_splitted[2].length());
+            Current[INPUT_FILE][3] = CURRENT_splitted[3].substring(0,CURRENT_splitted[3].length());
+
+            INPUT_FILE++;
+        }
+
+        // Read File 
+        String[] NON_CURRENT_INFILE = ReadingFileIntoArray("NONCURRENT.txt");
+        //System.out.println(Arrays.toString(CURRENT_INFILE));
+  
+        // Split Array Into Multidimensional Arrays
+        int NON_INPUT_FILE = 0;
+        while(NON_INPUT_FILE < CURRENT_INFILE.length) {
+        String CURRENT_BALANCE_SHEET = CURRENT_INFILE[NON_INPUT_FILE];
+        // One Dimensional Array
+        // WE GET EACH ROW FROM ARRAY FROM FILE
+        String[] NON_CURRENT_splitted= CURRENT_BALANCE_SHEET.split("\\s+");
+        // INSERT EACH ROW's ELEMENT INTO NEW MULTIDIMENSIONAL ARRAY
+        //String Price = splited[2].substring(8,splited[2].length());
+  
+        Non_Current[NON_INPUT_FILE][0] = NON_CURRENT_splitted[0].substring(0,NON_CURRENT_splitted[0].length());
+        Non_Current[NON_INPUT_FILE][1] = NON_CURRENT_splitted[1].substring(0,NON_CURRENT_splitted[1].length());
+        Non_Current[NON_INPUT_FILE][2] = NON_CURRENT_splitted[2].substring(0,NON_CURRENT_splitted[2].length());
+        Non_Current[NON_INPUT_FILE][3] = NON_CURRENT_splitted[3].substring(0,NON_CURRENT_splitted[3].length());
+  
+        NON_INPUT_FILE++;
+        }
+  
+
+
+
+        System.out.println("\n");
+
         System.out.println("__________Debit__________________________________________________________________Credit____________________________");
         System.out.println("Non-Current Assert              RM                                          Non-Current Liability              RM");
         System.out.println("___________________________________________________________________________________________________________________");
+        print2D(Non_Current);
 
+        //for(int ROW=0; ROW< 10; ROW++){
+            //for(int COLUMN=0; COLUMN<10; COLUMN++){
+                //System.out.print(Current[ROW][COLUMN]);
+            //}
+            //System.out.println("");
+        //}
         System.out.println("__________________________________________________________________________________________________________________");
         System.out.println("Current Assert                  RM                                              Current Liability              RM");
         System.out.println("___________________________________________________________________________________________________________________");
-       
+        print2D(Current);
+
 
         System.out.println("__________________________________________________________________________________________________________________");
         System.out.println("                                RM                                                EQUITY                       RM");
         System.out.println("___________________________________________________________________________________________________________________");
-
-        System.out.println("___________________________________________________________________________________________________________________");
+        System.out.println("\n\n___________________________________________________________________________________________________________________");
         System.out.println("                                                                                                                    ");
         System.out.println("___________________________________________________________________________________________________________________");
 
