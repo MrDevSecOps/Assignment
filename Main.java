@@ -1160,6 +1160,20 @@ public class Main {
 
     }
     public static void Currency_Convertor(){
+        final Double USD_DOLLAR = 4.24;
+        final Double SDG_DOLLAR = 3.12;
+        final Double RMB_RM = 0.65;
+        Scanner Currency_Input = new Scanner(System.in);
+        System.out.println("Currency Convertor");
+        System.out.println("1. RM TO RMB");
+        System.out.println("2. RM TO SGD");
+        System.out.println("3. RM TO USD");
+        System.out.println("4. RMB TO RM");
+        System.out.println("5. SGD TO RM");
+        System.out.println("6. USD TO RM");
+        System.out.println("Which Currency You Want To Convert? ");
+
+
 
     }
     
