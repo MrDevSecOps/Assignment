@@ -270,10 +270,11 @@ public class Main {
         +"MMMMMMMMMMMMMMMMMMMMMMMMMMM@.               i,                  MMMMMMMMMMMMMMM\n"
         +"MMMMMMMMMMMMMMMMMMMMMMMMMMM8                ,:                   MMMMMMMMMMMMMM\n");
 
-        System.out.println("1- Logistic Partner Details");
-        System.out.println("2- Compound Interesting Calculator");
-        System.out.println("3-  Breakeven Calculator");
-        System.out.println("4-  Currency Convertor");
+        System.out.println("1- Suppliers Details");
+        System.out.println("2- Logistic Details");
+        System.out.println("3- Compound Interesting Calculator");
+        System.out.println("4-  Breakeven Calculator");
+        System.out.println("5-  Currency Convertor");
         System.out.println("9- Exit");
         System.out.println("Please Insert (1-9):");
 
@@ -1262,8 +1263,41 @@ public class Main {
             Next Task: WE'RE GOING WRITE THE RESULT INTO FILE IN ORDER TO DO BALANCE SHEET
         */
     }
+
+    //
+    public static void Supplier(){
+        System.out.println("Supplier Page");
+        try {
+            File myObj = new File("SUPPLIER.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+              String data = myReader.nextLine();
+              System.out.println(data);
+            }
+            myReader.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
+    }
+
     public static void Logistics(){
-        System.out.println("Logistics First Page");
+        System.out.println("Logistics Page");
+        try {
+            File myObj = new File("TRANSPORTATION.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+              String data = myReader.nextLine();
+              System.out.println(data);
+            }
+            myReader.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
 
     }
     // Checking Numeric Method 
@@ -1580,15 +1614,18 @@ public class Main {
 
         switch(input){
             case "1":
-                Logistics();
+                Supplier();
                 break;
             case "2":
+                Logistics();
+                break;     
+            case "3":
                 CompoundInterest();
                 break;
-            case "3":
+            case "4":
                 Breakeven();
                 break;
-            case "4":
+            case "5":
                 Currency_Convertor();
                 break;
             
