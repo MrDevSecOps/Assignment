@@ -92,6 +92,13 @@ public class Main {
     public static Double TOTALSUM_DEBIT = 0.0;
     public static Double TOTALSUM_CREDIT = 0.0;
 
+
+    public static String PresentValue;
+    public static String AnnualInterest;
+    public static String CompoundTimes;
+    public static String Total_YEAR;
+    public static String FutureValue;
+
     // Priority Method Start
     // Menu Method
     public static void ComputerArt(){
@@ -1290,18 +1297,19 @@ public class Main {
                         System.out.println("\n\nTHIS FORMULA IS ADOPT: FV = P (1+ r/n) ^nt\n ");
                         while(Looping){
                             System.out.println("Please Enter Your Present Value: ");
-                            String PresentValue = Compound_Interest_Scanner.next();
+                            PresentValue = Compound_Interest_Scanner.next();
                             if(isNumeric(PresentValue)){
                                 Looping = false;
                             } else{
                                 continue;
                             }
+                        
 
                         }   
                         Looping = true;   
                         while(Looping){
                             System.out.println("What is your annual interest rate? Such as 5");
-                            String AnnualInterest = Compound_Interest_Scanner.next();
+                            AnnualInterest = Compound_Interest_Scanner.next();
                             if(isNumeric(AnnualInterest)){
                                 Looping = false;
                             } else{
@@ -1312,7 +1320,7 @@ public class Main {
                         Looping = true;   
                         while(Looping){
                             System.out.println("How many times compounding for one year? Such as 1");
-                            String CompoundTimes = Compound_Interest_Scanner.next();
+                            CompoundTimes = Compound_Interest_Scanner.next();
                             if(isNumeric(CompoundTimes)){
                                 Looping = false;
                             } else{
@@ -1323,7 +1331,7 @@ public class Main {
                         Looping = true;  
                         while(Looping){          
                             System.out.println("How many times years? Such as 5");
-                            String Total_YEAR = Compound_Interest_Scanner.next();
+                            Total_YEAR = Compound_Interest_Scanner.next();
                             if(isNumeric(Total_YEAR)){
                                 Looping = false;
                             } else{
@@ -1332,18 +1340,91 @@ public class Main {
 
                         }   
                         Looping = true;  
-    
+
+                        //Convert All Strings into Double 
+                        Double FV = 0.0;
+                        Double PV = Double.parseDouble(PresentValue);
+                        Double AI = Double.parseDouble(AnnualInterest);
+                        Double CT = Double.parseDouble(CompoundTimes);
+                        Double Y = Double.parseDouble(Total_YEAR);
+                        FV = PV * Math.pow((1+((AI/100)/CT)),(Y*CT));
                         //Double FutureValue = PresentValue * Math.pow((1+((AnnualInterest/100)/CompoundTimes)),(Total_YEAR*CompoundTimes));
-                    
+                        System.out.println("The Future Value is "+ FV.toString());
+                        CalculatorArt(FV);
+
 
                     }catch(Exception e){
                         System.out.println("You are not entering numbers");
                     }
 
-                    CalculatorArt(7.0);
                 } else if(NumberForOperation == 2){
-                    ClearScreen();
-                    CalculatorArt(7.0);
+                    ClearScreen();            
+                    // PV = PV x (1 + i)^-n 
+                    // PV = P (1 + r/n) ^ -nt 
+       
+                    try{    
+                        System.out.println("\n\nTHIS FORMULA IS ADOPT: PV = FV (1+ r/n) ^-nt\n ");
+                        while(Looping){
+                            System.out.println("Please Enter Your Future Value: ");
+                            FutureValue = Compound_Interest_Scanner.next();
+                            if(isNumeric(FutureValue)){
+                                Looping = false;
+                            } else{
+                                continue;
+                            }             
+
+                        }   
+                        Looping = true;   
+                        while(Looping){
+                            System.out.println("What is your annual interest rate? Such as 5");
+                            AnnualInterest = Compound_Interest_Scanner.next();
+                            if(isNumeric(AnnualInterest)){
+                                Looping = false;
+                            } else{
+                                continue;
+                            }
+
+                        }   
+                        Looping = true;   
+                        while(Looping){
+                            System.out.println("How many times compounding for one year? Such as 1");
+                            CompoundTimes = Compound_Interest_Scanner.next();
+                            if(isNumeric(CompoundTimes)){
+                                Looping = false;
+                            } else{
+                                continue;
+                            }
+
+                        }   
+                        Looping = true;  
+                        while(Looping){          
+                            System.out.println("How many times years? Such as 5");
+                            Total_YEAR = Compound_Interest_Scanner.next();
+                            if(isNumeric(Total_YEAR)){
+                                Looping = false;
+                            } else{
+                                continue;
+                            }
+
+                        }   
+                        Looping = true;  
+
+                        //Convert All Strings into Double 
+                        Double PV = 0.0;
+                        Double FV = Double.parseDouble(FutureValue);
+                        Double AI = Double.parseDouble(AnnualInterest);
+                        Double CT = Double.parseDouble(CompoundTimes);
+                        Double Y = Double.parseDouble(Total_YEAR);
+                        PV = FV * Math.pow((1+((AI/100)/CT)),(Y*CT*(-1)));
+                        //Double FutureValue = PresentValue * Math.pow((1+((AnnualInterest/100)/CompoundTimes)),(Total_YEAR*CompoundTimes));
+                        System.out.println("The Present Value is "+ PV.toString());
+                        CalculatorArt(PV);
+
+
+                    }catch(Exception e){
+                        System.out.println("You are not entering numbers");
+                    }
+                    
 
                 }else if(NumberForOperation == 9){
                     ClearScreen();
@@ -1674,6 +1755,18 @@ public class Main {
 
 
     }
+    public static void EditArrayBalanceSheet(String AnyFile, int ROW, int COL){
+        if(AnyFile == "NONCURRENT.txt"){
+
+        } else if(AnyFile == "CURRENT.txt"){
+
+        } else if(AnyFile == "EQUITY.txt"){
+
+        }else {
+            System.out.println("File System Error!!!");
+        }
+
+    }
     public static void EditBalanceSheet(){
         ReadBalanceSheet();
         try{
@@ -1708,10 +1801,13 @@ public class Main {
             int ColumnForEdit = SectionScanner.nextInt();
             switch(SectionForEdit){
                 case 1:
+                    EditArrayBalanceSheet("NONCURRENT.txt",RowForEdit,ColumnForEdit);
                     break;
                 case 2:
+                    EditArrayBalanceSheet("CURRENT.txt",RowForEdit,ColumnForEdit);
                     break;
                 case 3:
+                    EditArrayBalanceSheet("EQUITY.txt",RowForEdit,ColumnForEdit);
                     break;
                 default:
                     break;
