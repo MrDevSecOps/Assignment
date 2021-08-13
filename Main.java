@@ -1443,7 +1443,30 @@ public class Main {
     }
     public static void Breakeven(){
         // Cost = Fixed Cost + (Quantity)(Variable Cost) 
-        // Profit = (Sale Price)(Quantity)
+        // Revenue = (Sale Price)(Quantity)
+        Scanner BreakevenItem = new Scanner(System.in);
+        Double BreakevenQuantity = 0.0;
+        Double BreakevenSale = 0.0;
+        try{
+            System.out.println("_________________Simple Stock Managament Calculator_____________________\n\n");
+            System.out.println("Cost = Fixed Cost + Quantity * Variable Cost");
+            System.out.println("Revenue = Sale Price Per Unit * Quantity");
+            System.out.println("When The Cost = Revenue. It means Breakeven!\n\n");
+            System.out.println("What is your fixed cost?");
+            Double FixedCost = BreakevenItem.nextDouble();
+            System.out.println("What is your Variable cost?");
+            Double VariableCost = BreakevenItem.nextDouble();
+            System.out.println("What is your Selling Price Per Unit?");
+            Double SellingPrice = BreakevenItem.nextDouble();
+            BreakevenQuantity = (FixedCost/ (SellingPrice - VariableCost));
+            System.out.println("Breakeven Quantity is: "+ BreakevenQuantity);
+            BreakevenSale = BreakevenQuantity * SellingPrice;
+            System.out.println("Breakeven Sale is: "+ BreakevenQuantity);
+            System.out.println("Breakeven Sale is: "+ BreakevenSale);
+            
+        }catch(Exception e) {
+            System.out.println("Illegal Operation !");
+        }
         
 
     }
