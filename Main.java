@@ -1521,6 +1521,7 @@ public class Main {
                 ReadBalanceSheet();
                 break;
             case "2":
+                EditBalanceSheet();
                 break;
             case "3":
                 GenerateBalanceSheet();
@@ -1672,6 +1673,52 @@ public class Main {
         System.out.println("___________________________________________________________________________________________________________________");
 
 
+    }
+    public static void EditBalanceSheet(){
+        ReadBalanceSheet();
+        try{
+            System.out.println("Section_1________________________________");
+            System.out.println("ROW1  XXX       XXX      XXX      XXX");
+            System.out.println("ROW2  XXX       XXX      XXX      XXX");
+            System.out.println("ROW3  XXX       XXX      XXX      XXX");
+            System.out.println("ROw4  XXX       XXX      XXX      XXX");
+            System.out.println("ROW5  XXX       XXX      XXX      XXX");
+            System.out.println("      COL1      COL2     COL3     COL4");
+            System.out.println("Section_2________________________________");
+            System.out.println("ROW1  XXX       XXX      XXX      XXX");
+            System.out.println("ROW2  XXX       XXX      XXX      XXX");
+            System.out.println("ROW3  XXX       XXX      XXX      XXX");
+            System.out.println("ROw4  XXX       XXX      XXX      XXX");
+            System.out.println("ROW5  XXX       XXX      XXX      XXX");
+            System.out.println("      COL1      COL2     COL3     COL4");
+            System.out.println("Section_3________________________________");
+            System.out.println("ROW1  XXX       XXX      XXX      XXX");
+            System.out.println("ROW2  XXX       XXX      XXX      XXX");
+            System.out.println("ROW3  XXX       XXX      XXX      XXX");
+            System.out.println("ROw4  XXX       XXX      XXX      XXX");
+            System.out.println("ROW5  XXX       XXX      XXX      XXX");
+            System.out.println("      COL1      COL2     COL3     COL4");
+
+            System.out.println("Which Section You Want To Edit?");
+            Scanner SectionScanner = new Scanner(System.in);
+            int SectionForEdit = SectionScanner.nextInt();
+            System.out.println("Which Row You Want To Edit");
+            int RowForEdit = SectionScanner.nextInt();
+            System.out.println("Which Column You Want To Edit");
+            int ColumnForEdit = SectionScanner.nextInt();
+            switch(SectionForEdit){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
+        }catch(Exception e){
+            System.out.println("Illegal Operation!");
+        }
     }
 
     public static void GenerateBalanceSheet(){
