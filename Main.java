@@ -32,8 +32,9 @@ in the automated system instead of manpower key-in system.
         SEARCH 
         ADD 
         DELETE 
+        DELETE BY ROWS
+        EDIT
         ADVANCED SEARCH 
-
     2. Stock Evaluation
     3. Stock Procurement
         Logistics
@@ -41,9 +42,9 @@ in the automated system instead of manpower key-in system.
         Breakeven Calculator
         Currency Convertor Calculator
     4. Balance Sheet
-
-
-
+        READ
+        EDIT
+        GENERATE TXT FILE
 
 */
 
@@ -915,9 +916,52 @@ public class Main {
 
         }
     }
-    // SubMenu 1- 5.Delete Multiple Stock Method
+    // 
+    // SubMenu 1- 5.Delete Stocks By Rows Method
     public static void DeleteStockByRows(){
+        System.out.println("DeleteStockByRows");
+        ComputerStockArt();
+        Scanner Selection = new Scanner(System.in);
+        String DeleteTypeByRows = Selection.next();
+        if(DeleteTypeByRows.equals("1")){
+            // FIle Reading Display
+            String[] DeleteDesktoplist1 = ReadingFileIntoArray("DESKTOP.txt");
+            int Number1 = 0;
+            while(Number1 < DeleteDesktoplist1.length) {
+                String DisplayDeleteItem1 = DeleteDesktoplist1[Number1];
+                System.out.println(Number1+1 + " "+ DisplayDeleteItem1);
+                Number1++;
+            }
+            // Finished Display
 
+            try{
+
+            }catch(Exception e){
+                System.out.println("Please Insert The Correct Input");
+            }
+        
+        
+        //Laptop
+        } else if(DeleteTypeByRows.equals("2")){
+            // FIle Reading Display
+            String[] DeleteDesktoplist1 = ReadingFileIntoArray("LAPTOP.txt");
+            int Number1 = 0;
+            while(Number1 < DeleteDesktoplist1.length) {
+                String DisplayDeleteItem1 = DeleteDesktoplist1[Number1];
+                System.out.println(Number1+1 + " "+ DisplayDeleteItem1);
+                Number1++;
+            }
+            // Finished Display
+            try{
+
+            }catch(Exception e){
+                System.out.println("Please Insert The Correct Input");
+            }
+
+        } else{
+            System.out.println("Invalid Input!");
+        }
+      
     }
     // SubMenu 1- 6.Modify Stock Method
     public static void EditStock(){
@@ -1810,18 +1854,72 @@ public class Main {
 
 
     }
-    public static void EditArrayBalanceSheet(String AnyFile, int ROW, int COL){
-        if(AnyFile == "NONCURRENT.txt"){
+    // Why Cannot Use The Generation Function Because need some modifications before use that method..
+    // Need To Refer That To Write This Function Also
+    public static void RepeatedWrite(){
 
+    }
+    // This Method Can Handle Different Section Modify
+    public static void RepeatedEdit(String OpenFile, int Open_ROW, int Open_COL, String Open_EDITED,int Open_SECTION){
+        //From Read Balance
+        String[] NON_CURRENT_INFILE = ReadingFileIntoArray(OpenFile);  
+        int NON_INPUT_FILE = 0;
+        while(NON_INPUT_FILE < NON_CURRENT_INFILE.length) {
+            String NON_CURRENT_BALANCE_SHEET = NON_CURRENT_INFILE[NON_INPUT_FILE];
+            String[] NON_CURRENT_splitted= NON_CURRENT_BALANCE_SHEET.split("\\s+");
+            Non_Current[NON_INPUT_FILE][0] = NON_CURRENT_splitted[0].substring(0,NON_CURRENT_splitted[0].length());
+            Non_Current[NON_INPUT_FILE][1] = NON_CURRENT_splitted[1].substring(0,NON_CURRENT_splitted[1].length());
+            Non_Current[NON_INPUT_FILE][2] = NON_CURRENT_splitted[2].substring(0,NON_CURRENT_splitted[2].length());
+            Non_Current[NON_INPUT_FILE][3] = NON_CURRENT_splitted[3].substring(0,NON_CURRENT_splitted[3].length());
+            SUM2_DEBIT = SUM2_DEBIT + Integer.parseInt(Non_Current[NON_INPUT_FILE][1]);
+            SUM2_CREDIT = SUM2_CREDIT + Integer.parseInt(Non_Current[NON_INPUT_FILE][3]);
+            NON_INPUT_FILE++;
+        }
+        Non_Current[Open_ROW][Open_COL] = Open_EDITED;
+        System.out.println("_______________________________________________________________________________________");
+        System.out.println("THE SECTION "+ Open_SECTION +" YOU HAVE SELECTED.................................");
+        // Display Edited Version
+        print2D(Non_Current);
+        System.out.println("________________________________________________________________________________________");
+                
+
+    }
+    // General Edit File With If-Statement In order to generate Desirable Output
+    public static void EditArrayBalanceSheet(String AnyFile, int ROW, int COL, String EDITED,int SECTION){
+        if(AnyFile == "NONCURRENT.txt"){
+            RepeatedEdit("NONCURRENT.txt",ROW,COL,EDITED,SECTION);
+            //String[] NON_CURRENT_INFILE = ReadingFileIntoArray("NONCURRENT.txt");  
+            //int NON_INPUT_FILE = 0;
+            //while(NON_INPUT_FILE < NON_CURRENT_INFILE.length) {
+                //String NON_CURRENT_BALANCE_SHEET = NON_CURRENT_INFILE[NON_INPUT_FILE];
+                //String[] NON_CURRENT_splitted= NON_CURRENT_BALANCE_SHEET.split("\\s+");
+                //Non_Current[NON_INPUT_FILE][0] = NON_CURRENT_splitted[0].substring(0,NON_CURRENT_splitted[0].length());
+                //Non_Current[NON_INPUT_FILE][1] = NON_CURRENT_splitted[1].substring(0,NON_CURRENT_splitted[1].length());
+                //Non_Current[NON_INPUT_FILE][2] = NON_CURRENT_splitted[2].substring(0,NON_CURRENT_splitted[2].length());
+                //Non_Current[NON_INPUT_FILE][3] = NON_CURRENT_splitted[3].substring(0,NON_CURRENT_splitted[3].length());
+                //SUM2_DEBIT = SUM2_DEBIT + Integer.parseInt(Non_Current[NON_INPUT_FILE][1]);
+                //SUM2_CREDIT = SUM2_CREDIT + Integer.parseInt(Non_Current[NON_INPUT_FILE][3]);
+                //NON_INPUT_FILE++;
+            //}
+                //Non_Current[ROW][COL] = EDITED;
+                //System.out.println("_______________________________________________________________________________________");
+                //System.out.println("THE SECTION "+ SECTION +" YOU HAVE SELECTED.................................");
+                // Display Edited Version
+                //print2D(Non_Current);
+                //System.out.println("________________________________________________________________________________________");
+                    
+    
         } else if(AnyFile == "CURRENT.txt"){
+            RepeatedEdit("CURRENT.txt",ROW,COL,EDITED,SECTION);
 
         } else if(AnyFile == "EQUITY.txt"){
-
+            RepeatedEdit("EQUITY.txt",ROW,COL,EDITED,SECTION);
         }else {
             System.out.println("File System Error!!!");
         }
 
     }
+    // Prompt User Edit 
     public static void EditBalanceSheet(){
         ReadBalanceSheet();
         try{
@@ -1854,19 +1952,45 @@ public class Main {
             int RowForEdit = SectionScanner.nextInt();
             System.out.println("Which Column You Want To Edit");
             int ColumnForEdit = SectionScanner.nextInt();
-            switch(SectionForEdit){
-                case 1:
-                    EditArrayBalanceSheet("NONCURRENT.txt",RowForEdit,ColumnForEdit);
-                    break;
-                case 2:
-                    EditArrayBalanceSheet("CURRENT.txt",RowForEdit,ColumnForEdit);
-                    break;
-                case 3:
-                    EditArrayBalanceSheet("EQUITY.txt",RowForEdit,ColumnForEdit);
-                    break;
-                default:
-                    break;
+            // Possible Issues That Users could input the String into Numbers Rows 
+            // It will cause the Sum Function Loses Its Function
+            // Therefore Need Check With Column By IF-STATEMENT
+            System.out.println("Edit That To What You Want");
+            String ChangeTo = SectionScanner.next();
+            if((ColumnForEdit==1 || ColumnForEdit==3) && isNumeric(ChangeTo)){
+                switch(SectionForEdit){
+                    case 1:
+                        EditArrayBalanceSheet("NONCURRENT.txt",RowForEdit,ColumnForEdit,ChangeTo,1);
+                        break;
+                    case 2:
+                        EditArrayBalanceSheet("CURRENT.txt",RowForEdit,ColumnForEdit,ChangeTo,2);
+                        break;
+                    case 3:
+                        EditArrayBalanceSheet("EQUITY.txt",RowForEdit,ColumnForEdit,ChangeTo,3);
+                        break;
+                    default:
+                        break;
+                }       
+                        
+            }else if(ColumnForEdit==0 || ColumnForEdit==2){
+                switch(SectionForEdit){
+                    case 1:
+                        EditArrayBalanceSheet("NONCURRENT.txt",RowForEdit,ColumnForEdit,ChangeTo,1);
+                        break;
+                    case 2:
+                        EditArrayBalanceSheet("CURRENT.txt",RowForEdit,ColumnForEdit,ChangeTo,2);
+                        break;
+                    case 3:
+                        EditArrayBalanceSheet("EQUITY.txt",RowForEdit,ColumnForEdit,ChangeTo,3);
+                        break;
+                    default:
+                        break;
+                }     
+            }else{
+                System.out.println("Invalid Type For That May Crush The Program. Force To Quit...!");
             }
+            
+        
         }catch(Exception e){
             System.out.println("Illegal Operation!");
         }
