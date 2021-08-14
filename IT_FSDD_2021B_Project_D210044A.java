@@ -4,7 +4,7 @@
 // Subject Name: IT_FSDD_2021B
 // Project
 // Topic: Computer Shop Stock Management System
-// Submission Date: /8/21
+// Submission Date: 14/8/21
 /*
 Introduction:
     Problem Statement. Since MCO or Covid-19 Outbreak, the demand for the semiconductor especially the computer 
@@ -14,16 +14,42 @@ could be more relevant and more easier to found in the domestric area. It contri
 stock management system chose as my topic to help the industry. 
     My stock management system is mainly helping the clients, computer shop owner to organizing their stock 
 in the automated system instead of manpower key-in system. 
+    My Stock Management System is mainly formed by 4 main modules, they are Stock Management, Stock Valuation, Stock
+Procurement and Balance Sheet. 
+    First Module. Stock Management System. It has two types of items. They are laptop and desktop. Laptop and desktop have
+nine attributes stored in the file.
+    Sample Data
+    1.CPU-Gen: I5
+    2.TYPE: LAPTOP
+    3.Price: RM9000
+    4.RAM: 8GB
+    5.Accessories:Keyboard, Mouse
+    6.Quantity:300
+    7.Cost:RM2000
+    8.Purchase_Date:14/8/2021
+    9.Brand:Unknown
+    First Module has 6 submodules. They are read, search, add(LAPTOP/DESKTOP), delete by row, edit, advanced search 
+while the advanced search has another 2 submodules. They are advanced search by budget.
+    Second Module. It is mainly retrieving the selling price per one unit(LAPTOP/DESKTOP), 
+cost per one unit(LAPTOP/DESKTOP), total quantity in order to calculating the total cost of stock and the profit.
+    Third module is the stock procurement system. It has 5 submodules.
+They are Suppliers Details, Logistic Details, Compound Interest Calculator, Breakeven Calculator,Currency Convertor.
+    This module is recording the suppliers details and logistic details in order to assisting the computer shop
+company solves the logistics and stock procurement issues. The other three calculators helps the computer shop
+owner to solve some common mathematical problems such as compound interest, breakeven unit and the foreign
+currency convertion. 
+    Last module is helping the computer shop owner doing the balancesheet. This module has three submodules.
+They are read, edit and generate the balancesheet text file.
 
 */
 /*
     My Stock management system has several objectives.  
     First. Computer Shop Stock Management System can read, modify and delete the computer accessories stock record.
-    Secondly. Computer Shop Stock Management System can calculate the stock value.
+    Secondly. Computer Shop Stock Management System can calculate the total stock costing and its potential profits.
     Thirdly. Computer Shop Stock Management System could do the stock procurement related operation as 
-    find the supplier, calculate the compound interest, breakeven, currency convertion
-    Next. Computer Shop Stock Management System provide simple accounting system to assist the users to do the
-    basic understanding about the computer
+    find the supplier and logistics, calculate the compound interest, breakeven, currency convertion.
+    Next. Computer Shop Stock Management System provide simple accounting system to assist the users to do the balance
+    sheets by reading, editing and generating the balance sheet.
 */
 
 /*
@@ -31,7 +57,7 @@ in the automated system instead of manpower key-in system.
         READ 
         SEARCH 
         ADD 
-        DELETE BY ROWS
+        DELETE BY ROW
         EDIT
         ADVANCED SEARCH 
     2. Stock Evaluation
@@ -67,7 +93,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.io.FileInputStream;
 
-public class Main {
+public class IT_FSDD_2021B_Project_D210044A {
     // Global Variable
     public static boolean Repeated =true;
     public static boolean SubMenuRepeated =true;
@@ -152,7 +178,7 @@ public class Main {
         +"\n          |   |  1. Read Stock                          |    |	       "
         +"\n          |   |  2. Search Stock                        |    |	       "
         +"\n          |   |  3. Add Stock                           |    |	       "
-        +"\n          |   |  4. Delete Items By Rows                |    |	       "
+        +"\n          |   |  4. Delete Items By Row                 |    |	       "
         +"\n          |   |  5. Edit Stock                          |    |	       "
         +"\n          |   |  6. Advanced Search                     |    |	       "
         +"\n          |   |  9. Return To Main Page                 |    |	       "
@@ -213,9 +239,8 @@ public class Main {
             +"\n          |   |                                         |    |	       "
             +"\n          |   |  Created By Ho Weng Yin                 |    |	       "
             +"\n          |   |                                         |    |	       "
-            +"\n          |   |                                         |    |	       "
             +"\n          |   |  1. Search by Budget                    |    |	       "
-            +"\n          |   |  2. Search by Brand                     |    |	       "
+            +"\n          |   |                                         |    |	       "
             +"\n          |   |  9. Return To Main Page                 |    |	       "
             +"\n          |   |  Insert 1-9:                            |    |	       "
             +"\n          |   |_________________________________________|    |	       "
@@ -271,7 +296,7 @@ public class Main {
 
         System.out.println("1- Suppliers Details");
         System.out.println("2- Logistic Details");
-        System.out.println("3- Compound Interesting Calculator");
+        System.out.println("3- Compound Calculator");
         System.out.println("4-  Breakeven Calculator");
         System.out.println("5-  Currency Convertor");
         System.out.println("9- Exit");
@@ -1093,7 +1118,7 @@ public class Main {
                 int COL_Integer_Type0 = Integer.parseInt(COL);
                 String[] MODIFIED_INFILE = ReadingFileIntoArray("DESKTOP.txt");
                 int TOTAL_LINE = (int)CountFileLine("DESKTOP.txt");
-                String[][] STOCK_MANAGEMENT= new String[TOTAL_LINE][8];
+                String[][] STOCK_MANAGEMENT= new String[TOTAL_LINE][9];
   
                 int NON_INPUT_FILE = 0;
                 if(isNumeric(ROW) && isNumeric(COL)){
@@ -1109,6 +1134,7 @@ public class Main {
                             STOCK_MANAGEMENT[NON_INPUT_FILE][5] = MODIFIED_SPLITTED[5].substring(0,MODIFIED_SPLITTED[5].length());
                             STOCK_MANAGEMENT[NON_INPUT_FILE][6] = MODIFIED_SPLITTED[6].substring(0,MODIFIED_SPLITTED[6].length());
                             STOCK_MANAGEMENT[NON_INPUT_FILE][7] = MODIFIED_SPLITTED[7].substring(0,MODIFIED_SPLITTED[7].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][8] = MODIFIED_SPLITTED[8].substring(0,MODIFIED_SPLITTED[8].length());
                             NON_INPUT_FILE++;
                         }
                         STOCK_MANAGEMENT[Row_Integer_Type0][COL_Integer_Type0] = ITEM;
@@ -1142,7 +1168,7 @@ public class Main {
                             STOCK_MANAGEMENT[NON_INPUT_FILE][5] = MODIFIED_SPLITTED[5].substring(0,MODIFIED_SPLITTED[5].length());
                             STOCK_MANAGEMENT[NON_INPUT_FILE][6] = MODIFIED_SPLITTED[6].substring(0,MODIFIED_SPLITTED[6].length());
                             STOCK_MANAGEMENT[NON_INPUT_FILE][7] = MODIFIED_SPLITTED[7].substring(0,MODIFIED_SPLITTED[7].length());
-
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][8] = MODIFIED_SPLITTED[8].substring(0,MODIFIED_SPLITTED[8].length());
                             NON_INPUT_FILE++;
                         }
                         STOCK_MANAGEMENT[Row_Integer_Type0][COL_Integer_Type0] = ITEM;
@@ -1176,35 +1202,112 @@ public class Main {
 
             //
         } else if(DeleteTypeByRows.equals("2")){
-            // FIle Reading Display
-            String[] DeleteLaptoplist1 = ReadingFileIntoArray("LAPTOP.txt");
-            int Number1 = 0;
-            while(Number1 < DeleteLaptoplist1.length) {
-                String DisplayDeleteItem1 = DeleteLaptoplist1[Number1];
-                System.out.println(Number1 + " "+ DisplayDeleteItem1);
-                Number1++;
-            }
-            // Finished Display
-            Demonstration_Row_Column();
-            // Declare Scanner
-            Scanner DeleteItemByRows = new Scanner(System.in);
-            try{
-                System.out.println("Which Row You Want To Edit?");
-                String ROW1 = DeleteItemByRows.next();
-                System.out.println("Which Column You Want To Edit?");
-                String COL1 = DeleteItemByRows.next();
-                System.out.println("Edit To?");
-                String ITEM1= DeleteItemByRows.next();
-                //
-                int ForLoop = 0;
-                String[] SmallerSizeArray = new String[DeleteLaptoplist1.length-1];      
-                int Row_Integer_Type = Integer.parseInt(ROW1);
-             
-                
-            }catch(Exception e){
-                System.out.println("Please Insert The Correct Input");
-            }
-
+               // FIle Reading Display
+               String[] DeleteDesktopList = ReadingFileIntoArray("LAPTOP.txt");
+               int Number1 = 0;
+               while(Number1 < DeleteDesktopList.length) {
+                   String DisplayDeleteItem0 =  DeleteDesktopList[Number1];
+                   System.out.println(Number1 + " "+ DisplayDeleteItem0);
+                   Number1++;
+               }
+               // Finished Display
+               Demonstration_Row_Column();
+               // Declare Scanner
+               Scanner DeleteItemByRows0 = new Scanner(System.in);
+               try{
+                   System.out.println("Which Row You Want To Edit?");
+                   String ROW = DeleteItemByRows0.next();
+                   System.out.println("Which Column You Want To Edit?");
+                   String COL = DeleteItemByRows0.next();
+                   System.out.println("Edit To?");
+                   String ITEM = DeleteItemByRows0.next();
+                   int Row_Integer_Type0 = Integer.parseInt(ROW);
+                   int COL_Integer_Type0 = Integer.parseInt(COL);
+                   String[] MODIFIED_INFILE = ReadingFileIntoArray("LAPTOP.txt");
+                   int TOTAL_LINE = (int)CountFileLine("LAPTOP.txt");
+                   String[][] STOCK_MANAGEMENT= new String[TOTAL_LINE][9];
+     
+                   int NON_INPUT_FILE = 0;
+                   if(isNumeric(ROW) && isNumeric(COL)){
+                       if((COL.equals("2")||COL.equals("3")||COL.equals("5")||COL.equals("6")) && isNumeric(ITEM)){
+                           while(NON_INPUT_FILE < MODIFIED_INFILE.length) {
+                               String MODIFIED_SECTION = MODIFIED_INFILE[NON_INPUT_FILE];
+                               String[] MODIFIED_SPLITTED= MODIFIED_SECTION.split("\\s+");
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][0] = MODIFIED_SPLITTED[0].substring(0,MODIFIED_SPLITTED[0].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][1] = MODIFIED_SPLITTED[1].substring(0,MODIFIED_SPLITTED[1].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][2] = MODIFIED_SPLITTED[2].substring(0,MODIFIED_SPLITTED[2].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][3] = MODIFIED_SPLITTED[3].substring(0,MODIFIED_SPLITTED[3].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][4] = MODIFIED_SPLITTED[4].substring(0,MODIFIED_SPLITTED[4].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][5] = MODIFIED_SPLITTED[5].substring(0,MODIFIED_SPLITTED[5].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][6] = MODIFIED_SPLITTED[6].substring(0,MODIFIED_SPLITTED[6].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][7] = MODIFIED_SPLITTED[7].substring(0,MODIFIED_SPLITTED[7].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][8] = MODIFIED_SPLITTED[8].substring(0,MODIFIED_SPLITTED[8].length());
+                               NON_INPUT_FILE++;
+                           }
+                           STOCK_MANAGEMENT[Row_Integer_Type0][COL_Integer_Type0] = ITEM;
+                           try{
+                               FileWriter fw = new FileWriter("LAPTOP.txt");     
+                               for (int i = 0; i < STOCK_MANAGEMENT.length; i++){
+                                    for (int j = 0; j < STOCK_MANAGEMENT[i].length; j++){
+                                       fw.write(STOCK_MANAGEMENT[i][j]);     
+                                       fw.write(" ");                
+                                   }
+                                   fw.write("\n");
+                               }
+                               fw.close();
+                   
+                           }catch(Exception e){
+                               System.out.println("Error When Writing Files");
+                           }
+                       
+                       //
+                       //
+                       //
+                       } else if(COL.equals("0")||COL.equals("1")||COL.equals("4")||COL.equals("7")||COL.equals("8")){
+                           while(NON_INPUT_FILE < MODIFIED_INFILE.length) {
+                               String MODIFIED_SECTION = MODIFIED_INFILE[NON_INPUT_FILE];
+                               String[] MODIFIED_SPLITTED= MODIFIED_SECTION.split("\\s+");
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][0] = MODIFIED_SPLITTED[0].substring(0,MODIFIED_SPLITTED[0].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][1] = MODIFIED_SPLITTED[1].substring(0,MODIFIED_SPLITTED[1].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][2] = MODIFIED_SPLITTED[2].substring(0,MODIFIED_SPLITTED[2].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][3] = MODIFIED_SPLITTED[3].substring(0,MODIFIED_SPLITTED[3].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][4] = MODIFIED_SPLITTED[4].substring(0,MODIFIED_SPLITTED[4].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][5] = MODIFIED_SPLITTED[5].substring(0,MODIFIED_SPLITTED[5].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][6] = MODIFIED_SPLITTED[6].substring(0,MODIFIED_SPLITTED[6].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][7] = MODIFIED_SPLITTED[7].substring(0,MODIFIED_SPLITTED[7].length());
+                               STOCK_MANAGEMENT[NON_INPUT_FILE][8] = MODIFIED_SPLITTED[8].substring(0,MODIFIED_SPLITTED[8].length());
+                               NON_INPUT_FILE++;
+                           }
+                           STOCK_MANAGEMENT[Row_Integer_Type0][COL_Integer_Type0] = ITEM;
+                           try{
+                               FileWriter fw = new FileWriter("LAPTOP.txt");     
+                               for (int i = 0; i < STOCK_MANAGEMENT.length; i++){
+                                    // Loop through all elements of current row
+                                    for (int j = 0; j < STOCK_MANAGEMENT[i].length; j++){
+                                       fw.write(STOCK_MANAGEMENT[i][j]);     
+                                       fw.write(" ");                
+                                   }
+                                   fw.write("\n");
+                               }
+                               fw.close();
+                   
+                           }catch(Exception e){
+                               System.out.println("Error When Writing Files");
+                           }
+   
+                       }else {
+                           System.out.println("THAT LINE SHOULD BE NUMBERS... FORCE TO QUIT!!! / You are exceeding the boundary of Array");
+                       }   
+                 
+                   }else{
+                       System.out.println("You Are Not Entering Numbers For ROW and COL");
+                   }
+   
+               }catch(Exception e){
+                   System.out.println("You Are not inserting Correct Input");
+               }
+   
+            
         } else{
             System.out.println("Invalid Input!");
         }
@@ -1259,7 +1362,7 @@ public class Main {
                 }
     
                 break;
-    
+            /*
             case 2:  
                 // Search By Brand -2
                 // Repeated by SubMenuEach Function
@@ -1291,6 +1394,7 @@ public class Main {
                     System.out.println("Please Enter Correct Brand Name");
                 }
                 break;
+                */
             /*
             case 3:
                 //Search By Hardware Specifications -3
