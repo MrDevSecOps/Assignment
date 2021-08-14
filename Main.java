@@ -1854,21 +1854,39 @@ public class Main {
 
 
     }
+    // Write File With Customized 
+    public static void WriteBalanceSheetWithCustomized(String Unchanged1, String Unchanged2, String OverrideFile, String[][] Modified){
+        String[] Unchanged_FILE = ReadingFileIntoArray(Unchanged1);  
+        String[] Unchanged1_FILE = ReadingFileIntoArray(Unchanged2);  
+        try{
+
+        }catch(Exception e){
+            System.out.println("File Override Error!!!");
+        }
+
+    }
     // Why Cannot Use The Generation Function Because need some modifications before use that method..
     // Need To Refer That To Write This Function Also
     // My Method Try To Import Three Arrays Into This Method In order To Conduct Write File Processes
     public static void RepeatedEditBalanceSheet(int KnowWhichModified,String[][] ModifiedArray){
         String[] FileRemainUnchanged = new String[2];
+        String FileOverride;
         // Assign File Combination
         if(KnowWhichModified == 0){
             FileRemainUnchanged[0] = "CURRENT.txt";
             FileRemainUnchanged[1] = "EQUITY.txt";
+            FileOverride = "NONCURRENT.txt";
+            WriteBalanceSheetWithCustomized(FileRemainUnchanged[0], FileRemainUnchanged[1], FileOverride, ModifiedArray);
         } else if(KnowWhichModified == 1){
             FileRemainUnchanged[0] = "NONCURRENT.txt";
             FileRemainUnchanged[1] = "EQUITY.txt";
+            FileOverride = "CURRENT.txt";
+            WriteBalanceSheetWithCustomized(FileRemainUnchanged[0], FileRemainUnchanged[1], FileOverride, ModifiedArray);
         } else if(KnowWhichModified == 2){
             FileRemainUnchanged[0] = "NONCURRENT.txt";
             FileRemainUnchanged[1] = "CURRENT.txt";
+            FileOverride = "EQUITY.txt";
+            WriteBalanceSheetWithCustomized(FileRemainUnchanged[0], FileRemainUnchanged[1], FileOverride, ModifiedArray);
         }else{
             System.out.println("Unexpected Errors!!!");
         }
