@@ -31,7 +31,6 @@ in the automated system instead of manpower key-in system.
         READ 
         SEARCH 
         ADD 
-        DELETE 
         DELETE BY ROWS
         EDIT
         ADVANCED SEARCH 
@@ -83,6 +82,8 @@ public class Main {
     public static String[][] Current= new String[10][4];
     public static String[][] EQUITY= new String[10][4];
 
+    public static String[][] Modified = new String[10][4];
+
     public static Double SUM1_DEBIT = 0.0;
     public static Double SUM1_CREDIT = 0.0;
 
@@ -92,6 +93,9 @@ public class Main {
     public static Double SUM3_CREDIT = 0.0;
     public static Double TOTALSUM_DEBIT = 0.0;
     public static Double TOTALSUM_CREDIT = 0.0;
+    public static String DEBIT;
+    public static String CREDIT;
+
 
 
     public static String PresentValue;
@@ -148,10 +152,9 @@ public class Main {
         +"\n          |   |  1. Read Stock                          |    |	       "
         +"\n          |   |  2. Search Stock                        |    |	       "
         +"\n          |   |  3. Add Stock                           |    |	       "
-        +"\n          |   |  4. Delete Single Item (Cannot Overlap) |    |	       "
-        +"\n          |   |  5. Delete Items By Rows                |    |	       "
-        +"\n          |   |  6. Edit Stock                          |    |	       "
-        +"\n          |   |  7. Advanced Search                     |    |	       "
+        +"\n          |   |  4. Delete Items By Rows                |    |	       "
+        +"\n          |   |  5. Edit Stock                          |    |	       "
+        +"\n          |   |  6. Advanced Search                     |    |	       "
         +"\n          |   |  9. Return To Main Page                 |    |	       "
         +"\n          |   |  999. Create Database                   |    |	       "
         +"\n          |   |  Insert 1-9:                            |    |	       "
@@ -213,11 +216,6 @@ public class Main {
             +"\n          |   |                                         |    |	       "
             +"\n          |   |  1. Search by Budget                    |    |	       "
             +"\n          |   |  2. Search by Brand                     |    |	       "
-            +"\n          |   |  3. Search by Hardware Specification    |    |	       "
-            +"\n          |   |  4. Search by Assending Price           |    |	       "
-            +"\n          |   |  5. Search by Assending Quantity        |    |	       "
-            +"\n          |   |  6. Search by Assending Date            |    |	       "
-            +"\n          |   |                                         |    |	       "
             +"\n          |   |  9. Return To Main Page                 |    |	       "
             +"\n          |   |  Insert 1-9:                            |    |	       "
             +"\n          |   |_________________________________________|    |	       "
@@ -376,22 +374,22 @@ public class Main {
                         System.out.println("Case 3");
                         AddStock();
                         break;
-                    case 4:
+                    //case 4:
                         // SubMenu 4- Edit Function
+                        //System.out.println("Case 4");
+                        //DeleteStock();
+                        //break;
+                    case 4:
+                        // SubMenu 5- Advanced Search Function
                         System.out.println("Case 4");
-                        DeleteStock();
+                        DeleteStockByRows();
                         break;
                     case 5:
-                        // SubMenu 5- Advanced Search Function
                         System.out.println("Case 5");
-                        DeleteStockByRows();
+                        EditStock();
                         break;
                     case 6:
                         System.out.println("Case 6");
-                        EditStock();
-                        break;
-                    case 7:
-                        System.out.println("Case 7");
                         AdvancedSearchStock();
                         break;
                    
@@ -581,6 +579,12 @@ public class Main {
                             if(PromptManyTimes != 1){
                                 System.out.println(Prompt[PromptManyTimes]);
                                 NewItem[PromptManyTimes] = NEWITEMSCANNER.next();
+                                if(PromptManyTimes==2 || PromptManyTimes==3 || PromptManyTimes==5 || PromptManyTimes==6){
+                                    while(!isNumeric(NewItem[PromptManyTimes])){
+                                        System.out.println(Prompt[PromptManyTimes]);
+                                        NewItem[PromptManyTimes] = NEWITEMSCANNER.next();
+                                    }
+                                }
                             } else{
                                 // Because This Case 1 is For The Desktop Therefore No Need To Prompt the type. Just Info
                                 // Users. 
@@ -668,6 +672,12 @@ public class Main {
                             if(PromptManyTimes1 != 1){
                                 System.out.println(Prompt1[PromptManyTimes1]);
                                 NewItem1[PromptManyTimes1] = NEWITEMSCANNER1.next();
+                                if(PromptManyTimes1==2 || PromptManyTimes1==3 || PromptManyTimes1==5 || PromptManyTimes1==6){
+                                    while(!isNumeric(NewItem1[PromptManyTimes1])){
+                                        System.out.println(Prompt1[PromptManyTimes1]);
+                                        NewItem1[PromptManyTimes1] = NEWITEMSCANNER1.next();
+                                    }
+                                }
                             } else{
                                 // Because This Case 1 is For The Desktop Therefore No Need To Prompt the type. Just Info
                                 // Users. 
@@ -731,10 +741,10 @@ public class Main {
         
 
     }
+    /*
+    Delete General Method
     
-    // Delete General Method
-    
-    // SubMenu 1- 4.Delete Stock Method
+    //SubMenu 1- 4.Delete Stock Method
     public static void DeleteStock(){
         while(SubMenuEachFunction){
             ComputerStockArt();
@@ -770,10 +780,9 @@ public class Main {
                                 System.out.println("Back To Each Sub Menu -1 ");
                             } else{
                                 // Delete Function Here
-
                                 String[] DeleteDesktopList = ReadingFileIntoArray("DESKTOP.txt");
                                 int DeleteIndex1 = 0;
-                                // Loop for Searching from the Desktop Array
+                                Loop for Searching from the Desktop Array
                                 while(DeleteIndex1 < DeleteDesktopList.length) {
                                     String DeleteItem1 = DeleteDesktopList[DeleteIndex1];
                                     if(DeleteItem1.contains(UserDeleteDecision) || DeleteItem1.contains(UserDeleteDecision.toUpperCase())){
@@ -781,7 +790,6 @@ public class Main {
                                     }
                                     DeleteIndex1++;
                                 }
-
 
                             }
                             
@@ -896,10 +904,7 @@ public class Main {
                             System.out.println("Please Insert The Correct Input");
                         }
 
-
-
                         break;
-
 
                     case 9:
                         SubMenuEachFunction = false;
@@ -916,6 +921,19 @@ public class Main {
 
         }
     }
+  */
+
+    public static void Demonstration_Row_Column(){
+        System.out.println("\n\nROW0 XXXX XXXX XXXX XXXX");
+        System.out.println("ROW1 XXXX XXXX XXXX XXXX");
+        System.out.println("ROW2 XXXX XXXX XXXX XXXX");
+        System.out.println("ROW3 XXXX XXXX XXXX XXXX");
+        System.out.println("ROW4 XXXX XXXX XXXX XXXX");
+        System.out.println("ROW5 XXXX XXXX XXXX XXXX");
+        System.out.println("   COL0  COL1  COL2 COL3");
+
+
+    }
     // 
     // SubMenu 1- 5.Delete Stocks By Rows Method
     public static void DeleteStockByRows(){
@@ -925,35 +943,116 @@ public class Main {
         String DeleteTypeByRows = Selection.next();
         if(DeleteTypeByRows.equals("1")){
             // FIle Reading Display
-            String[] DeleteDesktoplist1 = ReadingFileIntoArray("DESKTOP.txt");
+            String[] DeleteDesktopList = ReadingFileIntoArray("DESKTOP.txt");
             int Number1 = 0;
-            while(Number1 < DeleteDesktoplist1.length) {
-                String DisplayDeleteItem1 = DeleteDesktoplist1[Number1];
-                System.out.println(Number1+1 + " "+ DisplayDeleteItem1);
+            while(Number1 < DeleteDesktopList.length) {
+                String DisplayDeleteItem0 =  DeleteDesktopList[Number1];
+                System.out.println(Number1 + " "+ DisplayDeleteItem0);
                 Number1++;
             }
             // Finished Display
-
+            Demonstration_Row_Column();
+            // Declare Scanner
+            Scanner DeleteItemByRows0 = new Scanner(System.in);
             try{
+                System.out.println("Which Row You Want To Delete?");
+                String Row1 = DeleteItemByRows0.next();
+                int ForLoop1 = 0;
+                String[] SmallerSizeArray1 = new String[DeleteDesktopList.length-1];
+                // 
+                try{
+                    int Row_Integer_Type0 = Integer.parseInt(Row1);
+                    //
+                    if(isNumeric(Row1) && (Row_Integer_Type0 < DeleteDesktopList.length)){
+                        // Delete Row in Array Type
+                        while(ForLoop1 < DeleteDesktopList.length-1){
+                            if(ForLoop1 == Row_Integer_Type0){
+                                SmallerSizeArray1[ForLoop1] = DeleteDesktopList[ForLoop1+1];
+                                ForLoop1++;
+                            } else {
+                                SmallerSizeArray1[ForLoop1] = DeleteDesktopList[ForLoop1];
+                                ForLoop1++;
+                            }
+                        }
+                        // Delete Row in File   
+                        try{
+                            BufferedWriter outputWriter3 = null;
+                            outputWriter3 = new BufferedWriter(new FileWriter("DESKTOP.txt"));
+                            for (int i = 0; i < SmallerSizeArray1.length; i++) {                  
+                              outputWriter3.write(SmallerSizeArray1[i]);
+                              outputWriter3.newLine();
+                            }
+                            outputWriter3.flush();  
+                            outputWriter3.close();  
+                        } catch(Exception e) {
+                            System.out.println("Write Unsuccessfully due to the errors");
+                        }   
+
+                    } 
+
+
+
+                    //
+
+                }catch(Exception e){
+                    System.out.println("You are not key in the numbers");
+
+                }
 
             }catch(Exception e){
                 System.out.println("Please Insert The Correct Input");
             }
-        
-        
-        //Laptop
+
+            //
         } else if(DeleteTypeByRows.equals("2")){
             // FIle Reading Display
-            String[] DeleteDesktoplist1 = ReadingFileIntoArray("LAPTOP.txt");
+            String[] DeleteLaptoplist1 = ReadingFileIntoArray("LAPTOP.txt");
             int Number1 = 0;
-            while(Number1 < DeleteDesktoplist1.length) {
-                String DisplayDeleteItem1 = DeleteDesktoplist1[Number1];
-                System.out.println(Number1+1 + " "+ DisplayDeleteItem1);
+            while(Number1 < DeleteLaptoplist1.length) {
+                String DisplayDeleteItem1 = DeleteLaptoplist1[Number1];
+                System.out.println(Number1 + " "+ DisplayDeleteItem1);
                 Number1++;
             }
             // Finished Display
+            Demonstration_Row_Column();
+            // Declare Scanner
+            Scanner DeleteItemByRows = new Scanner(System.in);
             try{
+                System.out.println("Which Row You Want To Delete?");
+                String Row = DeleteItemByRows.next();
+                int ForLoop = 0;
+                String[] SmallerSizeArray = new String[DeleteLaptoplist1.length-1];
+                try{
+                    int Row_Integer_Type = Integer.parseInt(Row);
+                    if(isNumeric(Row) && (Row_Integer_Type < DeleteLaptoplist1.length)){
+                        // Delete Row in Array Type
+                        while(ForLoop < DeleteLaptoplist1.length-1){
+                            if(ForLoop == Row_Integer_Type){
+                                SmallerSizeArray[ForLoop] = DeleteLaptoplist1[ForLoop+1];
+                                ForLoop++;
+                            } else {
+                                SmallerSizeArray[ForLoop] = DeleteLaptoplist1[ForLoop];
+                                ForLoop++;
+                            }
+                        }
+                        // Delete Row in File   
+                        try{
+                            BufferedWriter outputWriter2 = null;
+                            outputWriter2 = new BufferedWriter(new FileWriter("LAPTOP.txt"));
+                            for (int i = 0; i < SmallerSizeArray.length; i++) {                  
+                              outputWriter2.write(SmallerSizeArray[i]);
+                              outputWriter2.newLine();
+                            }
+                            outputWriter2.flush();  
+                            outputWriter2.close();  
+                        } catch(Exception e) {
+                            System.out.println("Write Unsuccessfully due to the errors");
+                        }   
 
+                    } 
+                }catch(Exception e){
+                    System.out.println("You are not key in the numbers");
+                }
             }catch(Exception e){
                 System.out.println("Please Insert The Correct Input");
             }
@@ -963,10 +1062,156 @@ public class Main {
         }
       
     }
+
     // SubMenu 1- 6.Modify Stock Method
     public static void EditStock(){
+        System.out.println("Editing Stock......................");
+        ComputerStockArt();
+        Scanner Selection = new Scanner(System.in);
+        String DeleteTypeByRows = Selection.next();
+        if(DeleteTypeByRows.equals("1")){
+            // FIle Reading Display
+            String[] DeleteDesktopList = ReadingFileIntoArray("DESKTOP.txt");
+            int Number1 = 0;
+            while(Number1 < DeleteDesktopList.length) {
+                String DisplayDeleteItem0 =  DeleteDesktopList[Number1];
+                System.out.println(Number1 + " "+ DisplayDeleteItem0);
+                Number1++;
+            }
+            // Finished Display
+            Demonstration_Row_Column();
+            // Declare Scanner
+            Scanner DeleteItemByRows0 = new Scanner(System.in);
+            try{
+                System.out.println("Which Row You Want To Edit?");
+                String ROW = DeleteItemByRows0.next();
+                System.out.println("Which Column You Want To Edit?");
+                String COL = DeleteItemByRows0.next();
+                System.out.println("Edit To?");
+                String ITEM = DeleteItemByRows0.next();
+                int Row_Integer_Type0 = Integer.parseInt(ROW);
+                int COL_Integer_Type0 = Integer.parseInt(COL);
+                String[] MODIFIED_INFILE = ReadingFileIntoArray("DESKTOP.txt");
+                int TOTAL_LINE = (int)CountFileLine("DESKTOP.txt");
+                String[][] STOCK_MANAGEMENT= new String[TOTAL_LINE][8];
+  
+                int NON_INPUT_FILE = 0;
+                if(isNumeric(ROW) && isNumeric(COL)){
+                    if((COL.equals("2")||COL.equals("3")||COL.equals("5")||COL.equals("6")) && isNumeric(ITEM)){
+                        while(NON_INPUT_FILE < MODIFIED_INFILE.length) {
+                            String MODIFIED_SECTION = MODIFIED_INFILE[NON_INPUT_FILE];
+                            String[] MODIFIED_SPLITTED= MODIFIED_SECTION.split("\\s+");
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][0] = MODIFIED_SPLITTED[0].substring(0,MODIFIED_SPLITTED[0].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][1] = MODIFIED_SPLITTED[1].substring(0,MODIFIED_SPLITTED[1].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][2] = MODIFIED_SPLITTED[2].substring(0,MODIFIED_SPLITTED[2].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][3] = MODIFIED_SPLITTED[3].substring(0,MODIFIED_SPLITTED[3].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][4] = MODIFIED_SPLITTED[4].substring(0,MODIFIED_SPLITTED[4].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][5] = MODIFIED_SPLITTED[5].substring(0,MODIFIED_SPLITTED[5].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][6] = MODIFIED_SPLITTED[6].substring(0,MODIFIED_SPLITTED[6].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][7] = MODIFIED_SPLITTED[7].substring(0,MODIFIED_SPLITTED[7].length());
+                            NON_INPUT_FILE++;
+                        }
+                        STOCK_MANAGEMENT[Row_Integer_Type0][COL_Integer_Type0] = ITEM;
+                        try{
+                            FileWriter fw = new FileWriter("DESKTOP.txt");     
+                            for (int i = 0; i < STOCK_MANAGEMENT.length; i++){
+                                 for (int j = 0; j < STOCK_MANAGEMENT[i].length; j++){
+                                    fw.write(STOCK_MANAGEMENT[i][j]);     
+                                    fw.write(" ");                
+                                }
+                                fw.write("\n");
+                            }
+                            fw.close();
+                
+                        }catch(Exception e){
+                            System.out.println("Error When Writing Files");
+                        }
+                    
+                    //
+                    //
+                    //
+                    } else if(COL.equals("0")||COL.equals("1")||COL.equals("4")||COL.equals("7")||COL.equals("8")){
+                        while(NON_INPUT_FILE < MODIFIED_INFILE.length) {
+                            String MODIFIED_SECTION = MODIFIED_INFILE[NON_INPUT_FILE];
+                            String[] MODIFIED_SPLITTED= MODIFIED_SECTION.split("\\s+");
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][0] = MODIFIED_SPLITTED[0].substring(0,MODIFIED_SPLITTED[0].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][1] = MODIFIED_SPLITTED[1].substring(0,MODIFIED_SPLITTED[1].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][2] = MODIFIED_SPLITTED[2].substring(0,MODIFIED_SPLITTED[2].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][3] = MODIFIED_SPLITTED[3].substring(0,MODIFIED_SPLITTED[3].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][4] = MODIFIED_SPLITTED[4].substring(0,MODIFIED_SPLITTED[4].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][5] = MODIFIED_SPLITTED[5].substring(0,MODIFIED_SPLITTED[5].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][6] = MODIFIED_SPLITTED[6].substring(0,MODIFIED_SPLITTED[6].length());
+                            STOCK_MANAGEMENT[NON_INPUT_FILE][7] = MODIFIED_SPLITTED[7].substring(0,MODIFIED_SPLITTED[7].length());
+
+                            NON_INPUT_FILE++;
+                        }
+                        STOCK_MANAGEMENT[Row_Integer_Type0][COL_Integer_Type0] = ITEM;
+                        try{
+                            FileWriter fw = new FileWriter("DESKTOP.txt");     
+                            for (int i = 0; i < STOCK_MANAGEMENT.length; i++){
+                                 // Loop through all elements of current row
+                                 for (int j = 0; j < STOCK_MANAGEMENT[i].length; j++){
+                                    fw.write(STOCK_MANAGEMENT[i][j]);     
+                                    fw.write(" ");                
+                                }
+                                fw.write("\n");
+                            }
+                            fw.close();
+                
+                        }catch(Exception e){
+                            System.out.println("Error When Writing Files");
+                        }
+
+                    }else {
+                        System.out.println("THAT LINE SHOULD BE NUMBERS... FORCE TO QUIT!!! / You are exceeding the boundary of Array");
+                    }   
+              
+                }else{
+                    System.out.println("You Are Not Entering Numbers For ROW and COL");
+                }
+
+            }catch(Exception e){
+                System.out.println("You Are not inserting Correct Input");
+            }
+
+            //
+        } else if(DeleteTypeByRows.equals("2")){
+            // FIle Reading Display
+            String[] DeleteLaptoplist1 = ReadingFileIntoArray("LAPTOP.txt");
+            int Number1 = 0;
+            while(Number1 < DeleteLaptoplist1.length) {
+                String DisplayDeleteItem1 = DeleteLaptoplist1[Number1];
+                System.out.println(Number1 + " "+ DisplayDeleteItem1);
+                Number1++;
+            }
+            // Finished Display
+            Demonstration_Row_Column();
+            // Declare Scanner
+            Scanner DeleteItemByRows = new Scanner(System.in);
+            try{
+                System.out.println("Which Row You Want To Edit?");
+                String ROW1 = DeleteItemByRows.next();
+                System.out.println("Which Column You Want To Edit?");
+                String COL1 = DeleteItemByRows.next();
+                System.out.println("Edit To?");
+                String ITEM1= DeleteItemByRows.next();
+                //
+                int ForLoop = 0;
+                String[] SmallerSizeArray = new String[DeleteLaptoplist1.length-1];      
+                int Row_Integer_Type = Integer.parseInt(ROW1);
+             
+                
+            }catch(Exception e){
+                System.out.println("Please Insert The Correct Input");
+            }
+
+        } else{
+            System.out.println("Invalid Input!");
+        }
+      
         
     }
+
     // SubMenu 1- 7.Advanced Search Stock Method
     public static void AdvancedSearchStock(){
          // Repeated by SubMenuEach Function
@@ -1046,7 +1291,7 @@ public class Main {
                     System.out.println("Please Enter Correct Brand Name");
                 }
                 break;
-
+            /*
             case 3:
                 //Search By Hardware Specifications -3
                 System.out.println("Search By Hardware Specifications");
@@ -1135,8 +1380,7 @@ public class Main {
                 index6++;
                 }
                 break;
-             
-                
+            */          
 
             case 9:
                 SubMenuEachFunction = false;
@@ -1292,7 +1536,6 @@ public class Main {
             //NextIndex2++;
 
         //}
-
         
         // Refer To https://stackoverflow.com/questions/8639115/java-and-decimals-e-numbers
         System.out.printf("\n\nTotal Of The Sale Price of Products minus the Total Cost of The Product times with the quantity RM%.2f", NetProfit);
@@ -1303,9 +1546,6 @@ public class Main {
         //System.out.println("Total Cost is: " + TotalCost2);
 
         
-        /*
-            Next Task: WE'RE GOING WRITE THE RESULT INTO FILE IN ORDER TO DO BALANCE SHEET
-        */
     }
 
     //
@@ -1351,17 +1591,26 @@ public class Main {
     }
     public static void CompoundInterest(){
         boolean Looping= true;
+        
         Scanner Compound_Interest_Scanner = new Scanner(System.in);
+        
         while(RepeatedForThree){
+            System.out.println("_______________________________________________");
             System.out.println("\n\n1- Find Future Value");
             System.out.println("2- Find Present Value\n\n");
-
             //  
             System.out.println("9- Exit");
             try{
-                int NumberForOperation = Compound_Interest_Scanner.nextInt();
-
-                if(NumberForOperation == 1){
+                
+                String NumberForOperation = Compound_Interest_Scanner.next();
+                while(!isNumeric(NumberForOperation)){
+                    System.out.println("_______________________________________________");
+                    System.out.println("\n\n1- Find Future Value");
+                    System.out.println("2- Find Present Value\n\n");
+                    System.out.println("9- Exit");
+                    NumberForOperation = Compound_Interest_Scanner.next();
+                }
+                if(NumberForOperation.equals("1")){
                     // FV = PV x (1 + i)^n 
                     // FV = P (1 + r/n) ^ nt 
                     
@@ -1428,9 +1677,11 @@ public class Main {
 
                     }catch(Exception e){
                         System.out.println("You are not entering numbers");
+                        Looping = false;
+
                     }
 
-                } else if(NumberForOperation == 2){
+                } else if(NumberForOperation.equals("2")){
                     ClearScreen();            
                     // PV = PV x (1 + i)^-n 
                     // PV = P (1 + r/n) ^ -nt 
@@ -1496,10 +1747,11 @@ public class Main {
 
                     }catch(Exception e){
                         System.out.println("You are not entering numbers");
+                        Looping = false;
                     }
                     
 
-                }else if(NumberForOperation == 9){
+                }else if(NumberForOperation.equals("9")){
                     ClearScreen();
                     CalculatorArt(7.0);
                     RepeatedForThree = false;
@@ -1510,6 +1762,7 @@ public class Main {
 
             }catch(Exception e){
                 System.out.println("You Are Not Enter Numbers");
+                Looping = false;
             }
 
         }
@@ -1744,12 +1997,22 @@ public class Main {
  
            
     }
+    
 
     public static void ReadBalanceSheet(){
         // Read File 
         String[] CURRENT_INFILE = ReadingFileIntoArray("CURRENT.txt");
         //System.out.println(Arrays.toString(CURRENT_INFILE));
-      
+
+        // Reset
+        TOTALSUM_DEBIT = 0.0;
+        TOTALSUM_CREDIT = 0.0;
+        SUM1_DEBIT = 0.0;
+        SUM2_DEBIT = 0.0; 
+        SUM3_DEBIT = 0.0;
+        SUM1_CREDIT = 0.0;
+        SUM2_CREDIT = 0.0; 
+        SUM3_CREDIT = 0.0;
         // Split Array Into Multidimensional Arrays
         int INPUT_FILE = 0;
         while(INPUT_FILE < CURRENT_INFILE.length) {
@@ -1854,77 +2117,57 @@ public class Main {
 
 
     }
-    // Write File With Customized 
-    public static void WriteBalanceSheetWithCustomized(String Unchanged1, String Unchanged2, String OverrideFile, String[][] Modified){
-        String[] Unchanged_FILE = ReadingFileIntoArray(Unchanged1);  
-        String[] Unchanged1_FILE = ReadingFileIntoArray(Unchanged2);  
-        try{
-
-        }catch(Exception e){
-            System.out.println("File Override Error!!!");
-        }
-
-    }
+   
+   
     // Why Cannot Use The Generation Function Because need some modifications before use that method..
     // Need To Refer That To Write This Function Also
     // My Method Try To Import Three Arrays Into This Method In order To Conduct Write File Processes
-    public static void RepeatedEditBalanceSheet(int KnowWhichModified,String[][] ModifiedArray){
-        String[] FileRemainUnchanged = new String[2];
-        String FileOverride;
-        // Assign File Combination
-        if(KnowWhichModified == 0){
-            FileRemainUnchanged[0] = "CURRENT.txt";
-            FileRemainUnchanged[1] = "EQUITY.txt";
-            FileOverride = "NONCURRENT.txt";
-            WriteBalanceSheetWithCustomized(FileRemainUnchanged[0], FileRemainUnchanged[1], FileOverride, ModifiedArray);
-        } else if(KnowWhichModified == 1){
-            FileRemainUnchanged[0] = "NONCURRENT.txt";
-            FileRemainUnchanged[1] = "EQUITY.txt";
-            FileOverride = "CURRENT.txt";
-            WriteBalanceSheetWithCustomized(FileRemainUnchanged[0], FileRemainUnchanged[1], FileOverride, ModifiedArray);
-        } else if(KnowWhichModified == 2){
-            FileRemainUnchanged[0] = "NONCURRENT.txt";
-            FileRemainUnchanged[1] = "CURRENT.txt";
-            FileOverride = "EQUITY.txt";
-            WriteBalanceSheetWithCustomized(FileRemainUnchanged[0], FileRemainUnchanged[1], FileOverride, ModifiedArray);
-        }else{
-            System.out.println("Unexpected Errors!!!");
-        }
 
-    }
     // This Method Can Handle Different Section Modify
     public static void RepeatedEdit(String OpenFile, int Open_ROW, int Open_COL, String Open_EDITED,int Open_SECTION){
         //From Read Balance
-        String[] NON_CURRENT_INFILE = ReadingFileIntoArray(OpenFile);  
+        String[] MODIFIED_INFILE = ReadingFileIntoArray(OpenFile);  
         // Need To Eliminate File Name Therefore We Know Which is not edited
-        String[] TotalFile= {"NON_CURRENT.txt","CURRENT.txt","EQUITY.txt"};
-        int WhichFileIsOpened=0;
-        for(int z=0; z<TotalFile.length; z++){
-            if(TotalFile[z].equals(OpenFile)){
-                WhichFileIsOpened = z;
-            }
-        }
+        //String[] TotalFile= {"NON_CURRENT.txt","CURRENT.txt","EQUITY.txt"};
+        //int WhichFileIsOpened=0;
+        //for(int z=0; z<TotalFile.length; z++){
+            //if(TotalFile[z].equals(OpenFile)){
+                //WhichFileIsOpened = z;
+            //}
+        //}
         int NON_INPUT_FILE = 0;
-        while(NON_INPUT_FILE < NON_CURRENT_INFILE.length) {
-            String NON_CURRENT_BALANCE_SHEET = NON_CURRENT_INFILE[NON_INPUT_FILE];
-            String[] NON_CURRENT_splitted= NON_CURRENT_BALANCE_SHEET.split("\\s+");
-            Non_Current[NON_INPUT_FILE][0] = NON_CURRENT_splitted[0].substring(0,NON_CURRENT_splitted[0].length());
-            Non_Current[NON_INPUT_FILE][1] = NON_CURRENT_splitted[1].substring(0,NON_CURRENT_splitted[1].length());
-            Non_Current[NON_INPUT_FILE][2] = NON_CURRENT_splitted[2].substring(0,NON_CURRENT_splitted[2].length());
-            Non_Current[NON_INPUT_FILE][3] = NON_CURRENT_splitted[3].substring(0,NON_CURRENT_splitted[3].length());
-            SUM2_DEBIT = SUM2_DEBIT + Integer.parseInt(Non_Current[NON_INPUT_FILE][1]);
-            SUM2_CREDIT = SUM2_CREDIT + Integer.parseInt(Non_Current[NON_INPUT_FILE][3]);
+        while(NON_INPUT_FILE < MODIFIED_INFILE.length) {
+            String MODIFIED_SECTION = MODIFIED_INFILE[NON_INPUT_FILE];
+            String[] MODIFIED_SPLITTED= MODIFIED_SECTION.split("\\s+");
+            Modified[NON_INPUT_FILE][0] = MODIFIED_SPLITTED[0].substring(0,MODIFIED_SPLITTED[0].length());
+            Modified[NON_INPUT_FILE][1] = MODIFIED_SPLITTED[1].substring(0,MODIFIED_SPLITTED[1].length());
+            Modified[NON_INPUT_FILE][2] = MODIFIED_SPLITTED[2].substring(0,MODIFIED_SPLITTED[2].length());
+            Modified[NON_INPUT_FILE][3] = MODIFIED_SPLITTED[3].substring(0,MODIFIED_SPLITTED[3].length());
             NON_INPUT_FILE++;
         }
-        Non_Current[Open_ROW][Open_COL] = Open_EDITED;
+        Modified[Open_ROW][Open_COL] = Open_EDITED;
         System.out.println("_______________________________________________________________________________________");
         System.out.println("THE SECTION "+ Open_SECTION +" YOU HAVE SELECTED.................................");
         // Display Edited Version
-        print2D(Non_Current);
+        print2D(Modified);
         System.out.println("________________________________________________________________________________________");
         
-        // Now We need to Rewrite The File By Calling RepeatedEditBalanceSheet
-        RepeatedEditBalanceSheet(WhichFileIsOpened, Non_Current);
+        // Now We need to Rewrite The File
+        try{
+            FileWriter fw = new FileWriter(OpenFile);     
+            for (int i = 0; i < Modified.length; i++){
+                 // Loop through all elements of current row
+                 for (int j = 0; j < Modified[i].length; j++){
+                    fw.write(Modified[i][j]);     
+                    fw.write(" ");                
+                }
+                fw.write("\n");
+            }
+            fw.close();
+
+        }catch(Exception e){
+            System.out.println("Error When Writing Files");
+        }
 
     }
     // General Edit File With If-Statement In order to generate Desirable Output
@@ -2040,7 +2283,8 @@ public class Main {
     }
 
     public static void GenerateBalanceSheet(){
-       
+        // Need To Refactor If Got Times
+        // It is repeated
         String[] CURRENT_INFILE = ReadingFileIntoArray("CURRENT.txt");   
         int INPUT_FILE = 0;
             while(INPUT_FILE < CURRENT_INFILE.length) {
@@ -2086,8 +2330,8 @@ public class Main {
             }
             TOTALSUM_DEBIT = SUM1_DEBIT + SUM2_DEBIT + SUM3_DEBIT;
             TOTALSUM_CREDIT = SUM1_CREDIT + SUM2_CREDIT + SUM3_CREDIT;   
-            String DEBIT = TOTALSUM_DEBIT.toString();
-            String CREDIT = TOTALSUM_CREDIT.toString();
+            DEBIT = TOTALSUM_DEBIT.toString();
+            CREDIT = TOTALSUM_CREDIT.toString();
             try{
                 // https://www.programcreek.com/2011/03/java-write-to-a-file-code-example/
                 FileWriter fw = new FileWriter("BALANCESHEET.txt");
