@@ -1856,13 +1856,36 @@ public class Main {
     }
     // Why Cannot Use The Generation Function Because need some modifications before use that method..
     // Need To Refer That To Write This Function Also
-    public static void RepeatedWrite(){
+    // My Method Try To Import Three Arrays Into This Method In order To Conduct Write File Processes
+    public static void RepeatedEditBalanceSheet(int KnowWhichModified,String[][] ModifiedArray){
+        String[] FileRemainUnchanged = new String[2];
+        // Assign File Combination
+        if(KnowWhichModified == 0){
+            FileRemainUnchanged[0] = "CURRENT.txt";
+            FileRemainUnchanged[1] = "EQUITY.txt";
+        } else if(KnowWhichModified == 1){
+            FileRemainUnchanged[0] = "NONCURRENT.txt";
+            FileRemainUnchanged[1] = "EQUITY.txt";
+        } else if(KnowWhichModified == 2){
+            FileRemainUnchanged[0] = "NONCURRENT.txt";
+            FileRemainUnchanged[1] = "CURRENT.txt";
+        }else{
+            System.out.println("Unexpected Errors!!!");
+        }
 
     }
     // This Method Can Handle Different Section Modify
     public static void RepeatedEdit(String OpenFile, int Open_ROW, int Open_COL, String Open_EDITED,int Open_SECTION){
         //From Read Balance
         String[] NON_CURRENT_INFILE = ReadingFileIntoArray(OpenFile);  
+        // Need To Eliminate File Name Therefore We Know Which is not edited
+        String[] TotalFile= {"NON_CURRENT.txt","CURRENT.txt","EQUITY.txt"};
+        int WhichFileIsOpened=0;
+        for(int z=0; z<TotalFile.length; z++){
+            if(TotalFile[z].equals(OpenFile)){
+                WhichFileIsOpened = z;
+            }
+        }
         int NON_INPUT_FILE = 0;
         while(NON_INPUT_FILE < NON_CURRENT_INFILE.length) {
             String NON_CURRENT_BALANCE_SHEET = NON_CURRENT_INFILE[NON_INPUT_FILE];
@@ -1881,7 +1904,9 @@ public class Main {
         // Display Edited Version
         print2D(Non_Current);
         System.out.println("________________________________________________________________________________________");
-                
+        
+        // Now We need to Rewrite The File By Calling RepeatedEditBalanceSheet
+        RepeatedEditBalanceSheet(WhichFileIsOpened, Non_Current);
 
     }
     // General Edit File With If-Statement In order to generate Desirable Output
